@@ -1,0 +1,112 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  min-height: 5rem;
+  padding: 1.25rem 1.5rem 1.25rem 2rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  transition: box-shadow 0.15s ease;
+}
+
+.card:focus-visible {
+  outline: 0.1875rem solid var(--color-primary);
+  outline-offset: 0.125rem;
+}
+
+/* ===================================================
+   Accent stripe
+   =================================================== */
+.accentStripe {
+  position: absolute;
+  left: 0;
+  top: 0.1875rem;
+  bottom: 0.1875rem;
+  width: 0.75rem;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+/* ===================================================
+   Emne variant — white bg, green stripe + title
+   =================================================== */
+.emne {
+  background-color: var(--color-white);
+  box-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.08);
+}
+
+.emne:hover {
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.14);
+}
+
+.emne .accentStripe {
+  background-color: var(--color-primary);
+}
+
+.emne .title {
+  color: var(--color-primary);
+}
+
+.emne .chevron {
+  color: var(--color-primary);
+}
+
+/* ===================================================
+   Aktivitet variant — purple bg, purple stripe + title
+   =================================================== */
+.aktivitet {
+  background-color: var(--color-bg-purple);
+  box-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.06);
+}
+
+.aktivitet:hover {
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.12);
+}
+
+.aktivitet .accentStripe {
+  background-color: var(--color-purple);
+}
+
+.aktivitet .title {
+  color: var(--color-purple);
+}
+
+.aktivitet .chevron {
+  color: var(--color-purple);
+}
+
+/* ===================================================
+   Text body
+   =================================================== */
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.title {
+  font-size: calc(1.125rem * var(--font-scale, 1));
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.description {
+  font-size: calc(0.875rem * var(--font-scale, 1));
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+/* ===================================================
+   Chevron
+   =================================================== */
+.chevron {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}

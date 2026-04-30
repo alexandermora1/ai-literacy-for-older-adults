@@ -1,0 +1,163 @@
+/* ===================================================
+   Page shell
+   =================================================== */
+.page {
+  min-height: 100dvh;
+  background-color: var(--color-white);
+  padding: 2.5rem 1rem 3rem;
+}
+
+/* ===================================================
+   Header row
+   =================================================== */
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.btnBack {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.75rem;
+  padding: 0 0.75rem 0 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: calc(0.9375rem * var(--font-scale, 1));
+  font-weight: 600;
+  color: var(--color-primary);
+  border-radius: 0.5rem;
+  align-self: center;
+}
+
+.btnBack:hover {
+  background: var(--color-bg-green);
+}
+
+.btnBack:focus-visible {
+  outline: 0.1875rem solid var(--color-primary);
+  outline-offset: 0.125rem;
+}
+
+.heading {
+  flex: 1;
+  margin: 0;
+  font-size: calc(2rem * var(--font-scale, 1));
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1.1;
+  align-self: center;
+}
+
+
+/* ===================================================
+   Meta row: text size control
+   =================================================== */
+.metaRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+/* ===================================================
+   Content sections
+   =================================================== */
+.section {
+  margin-bottom: 2rem;
+}
+
+/* ===================================================
+   Section pill (Emner / Aktiviteter heading)
+   =================================================== */
+.sectionPill {
+  position: relative;
+  background: var(--color-white);
+  border-radius: 0.5rem;
+  padding: 0.9375rem 1.25rem 0.9375rem 2rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.08);
+}
+
+.sectionPillStripe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.75rem;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.sectionPillLabel {
+  font-size: calc(1rem * var(--font-scale, 1));
+  font-weight: 700;
+}
+
+.sectionPillCount {
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+/* Green variant */
+.sectionPillGreen .sectionPillStripe {
+  background-color: var(--color-primary);
+}
+
+.sectionPillGreen .sectionPillLabel {
+  color: var(--color-primary);
+}
+
+/* Purple variant */
+.sectionPillPurple .sectionPillStripe {
+  background-color: var(--color-purple);
+}
+
+.sectionPillPurple .sectionPillLabel {
+  color: var(--color-purple);
+}
+
+/* ===================================================
+   Card list
+   =================================================== */
+.cardList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ===================================================
+   Responsive
+   =================================================== */
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .page {
+    padding: 2.5rem 2rem 3rem;
+  }
+
+  .heading {
+    font-size: calc(2.5rem * var(--font-scale, 1));
+  }
+}
+
+@media (min-width: 1024px) and (orientation: landscape) {
+  .page {
+    padding: 3rem 5rem 4rem;
+  }
+
+  .heading {
+    font-size: calc(3rem * var(--font-scale, 1));
+  }
+
+  .cardList {
+    max-width: 56rem;
+  }
+}

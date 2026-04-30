@@ -1,0 +1,25 @@
+:root {
+  /* Primary green */
+  --color-primary: #215A41;
+  --color-primary-light: #5A9F7D;
+
+  /* Purple secondary */
+  --color-purple: #4A3A80;
+  --color-purple-light: #6B5BA6;
+
+  /* Backgrounds */
+  --color-bg-green: #CFFBE3;
+  --color-bg-purple: #F3F0FF;
+
+  /* Text */
+  --color-text: #1A1A1A;
+  --color-text-secondary: #2F2F2F;
+  --color-text-muted: #5C5C5C;
+
+  /* Neutral */
+  --color-white: #FFFFFF;
+  --color-border: #E5E5E5;
+
+  /* Typography */
+  --font-family: 'Inter', system-ui, sans-serif;
+}

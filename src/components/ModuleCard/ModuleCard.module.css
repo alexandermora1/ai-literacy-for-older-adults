@@ -1,0 +1,154 @@
+/* ===================================================
+   Base card
+   =================================================== */
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  min-height: 12.375rem;
+  padding: 1.25rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  transition: box-shadow 0.15s ease;
+}
+
+.card:focus-visible {
+  outline: 0.1875rem solid var(--color-primary);
+  outline-offset: 0.125rem;
+}
+
+/* ===================================================
+   Completed variant
+   =================================================== */
+.completed {
+  background-color: var(--color-primary);
+}
+
+.completed:hover {
+  background-color: #1a4733;
+}
+
+.completed .chapterLabel {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.completed .title {
+  color: var(--color-white);
+}
+
+.completed .completionText {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.completed .chevron {
+  color: var(--color-white);
+}
+
+/* ===================================================
+   In-progress variant
+   =================================================== */
+.inProgress {
+  background-color: var(--color-white);
+  box-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.08);
+  padding-left: 2rem;
+}
+
+.inProgress:hover {
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.14);
+}
+
+.inProgress .chapterLabel {
+  color: var(--color-text-secondary);
+}
+
+.inProgress .title {
+  color: var(--color-text);
+}
+
+.inProgress .completionText {
+  color: var(--color-text-secondary);
+}
+
+.inProgress .chevron {
+  color: var(--color-text-muted);
+}
+
+/* ===================================================
+   Accent stripe (in-progress only)
+   3px top/bottom inset mirrors Figma: 192px stripe in 198px card
+   =================================================== */
+.accentStripe {
+  position: absolute;
+  left: 0;
+  top: 0.1875rem;
+  bottom: 0.1875rem;
+  width: 0.75rem;
+  background-color: var(--color-primary);
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+/* ===================================================
+   Text body
+   =================================================== */
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.chapterLabel {
+  font-size: calc(0.75rem * var(--font-scale, 1));
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: calc(1.25rem * var(--font-scale, 1));
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.completionText {
+  font-size: calc(0.875rem * var(--font-scale, 1));
+}
+
+.stars {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  margin-top: 0.375rem;
+  line-height: 1;
+}
+
+/* ===================================================
+   Icon box
+   =================================================== */
+.iconBox {
+  flex-shrink: 0;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 0.625rem;
+  background-color: var(--color-bg-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+/* ===================================================
+   Chevron
+   =================================================== */
+.chevron {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
