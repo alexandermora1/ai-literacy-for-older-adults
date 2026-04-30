@@ -4,6 +4,7 @@ import { EmneoversiktPage } from './pages/Emneoversikt/EmneoversiktPage';
 import { EmneinnholdPage } from './pages/Emneinnhold/EmneinnholdPage';
 import { QuizPage } from './pages/Quiz/QuizPage';
 import { QuizResultatPage } from './pages/QuizResultat/QuizResultatPage';
+import { NyttMerkePage } from './pages/NyttMerke/NyttMerkePage';
 import './App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/kapittel/:kapitelId/emne/:emneId" element={<EmneinnholdPage />} />
         <Route path="/kapittel/:kapitelId/quiz/:quizId" element={<QuizPage />} />
         <Route path="/kapittel/:kapitelId/quiz/:quizId/resultat" element={<QuizResultatPage />} />
+        <Route path="/kapittel/:kapitelId/quiz/:quizId/merke" element={<NyttMerkePage />} />
       </Routes>
     </HashRouter>
   );

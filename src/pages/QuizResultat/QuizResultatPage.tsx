@@ -3,6 +3,7 @@ import { PageHeaderActions } from '../../components/PageHeaderActions/PageHeader
 import { useTextScale } from '../../hooks/useTextScale';
 import { getChapterById } from '../../data/chapters';
 import { getQuiz, type QuizAnswerRecord } from '../../data/quizzes';
+import { getQuizBadge } from '../../data/badges';
 import styles from './QuizResultatPage.module.css';
 
 function BackArrow() {
@@ -58,6 +59,7 @@ export function QuizResultatPage() {
 
   const { correct, total, answers } = state;
   const stars = starsForScore(correct, total);
+  const earnedBadge = getQuizBadge(kapitelId, stars);
 
   return (
     <div
@@ -113,20 +115,22 @@ export function QuizResultatPage() {
             <p className={styles.resultMessage}>{resultMessage(stars)}</p>
           </section>
 
-          {/* ── Badge section ── */}
-          <section className={styles.badgeSection} aria-label="Opptjente merker">
-            <h2 className={styles.sectionHeading}>Opptjente merker</h2>
-            <div className={styles.badgeCard}>
-              <span className={styles.badgeIcon} aria-hidden="true">
-                {chapter.icon}
-              </span>
-              <div className={styles.badgeInfo}>
-                <span className={styles.badgeLabel}>Merke opptjent!</span>
-                <span className={styles.badgeName}>Quiz: {chapter.title}</span>
+          {/* ── Badge section — only shown when a badge was earned ── */}
+          {earnedBadge && (
+            <section className={styles.badgeSection} aria-label="Opptjente merker">
+              <h2 className={styles.sectionHeading}>Opptjente merker</h2>
+              <div className={styles.badgeCard}>
+                <span className={styles.badgeIcon} aria-hidden="true">
+                  {earnedBadge.icon}
+                </span>
+                <div className={styles.badgeInfo}>
+                  <span className={styles.badgeLabel}>Merke opptjent!</span>
+                  <span className={styles.badgeName}>{earnedBadge.name}</span>
+                </div>
+                <span className={styles.badgeMedal} aria-hidden="true">🏅</span>
               </div>
-              <span className={styles.badgeMedal} aria-hidden="true">🏅</span>
-            </div>
-          </section>
+            </section>
+          )}
 
           {/* ── Answer review section ── */}
           <section className={styles.reviewSection} aria-labelledby="review-heading">
@@ -188,14 +192,29 @@ export function QuizResultatPage() {
             >
               Prøv igjen
             </button>
-            <button
-              className={styles.btnPrimary}
-              type="button"
-              onClick={() => navigate(`/kapittel/${kapitelId}`)}
-              aria-label="Tilbake til emneoversikten for dette kapittelet"
-            >
-              Tilbake til emneoversikt
-            </button>
+            {earnedBadge ? (
+              <button
+                className={styles.btnPrimary}
+                type="button"
+                onClick={() =>
+                  navigate(`/kapittel/${kapitelId}/quiz/${quizId}/merke`, {
+                    state: { badge: earnedBadge, kapitelId, quizId },
+                  })
+                }
+                aria-label="Se det nye merket du har opptjent"
+              >
+                Se nytt merke!
+              </button>
+            ) : (
+              <button
+                className={styles.btnPrimary}
+                type="button"
+                onClick={() => navigate(`/kapittel/${kapitelId}`)}
+                aria-label="Tilbake til emneoversikten for dette kapittelet"
+              >
+                Tilbake til emneoversikt
+              </button>
+            )}
           </div>
 
         </div>
