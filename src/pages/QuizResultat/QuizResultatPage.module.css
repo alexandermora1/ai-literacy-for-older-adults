@@ -1,0 +1,202 @@
+/* ===================================================
+   Page shell
+   =================================================== */
+.page {
+  min-height: 100dvh;
+  background-color: var(--color-white);
+}
+
+/* ===================================================
+   Header
+   =================================================== */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1rem;
+  flex-wrap: wrap;
+  border-bottom: 0.0625rem solid var(--color-border);
+}
+
+.btnBack {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.75rem;
+  padding: 0 0.75rem 0 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: calc(0.875rem * var(--font-scale, 1));
+  font-weight: 600;
+  color: var(--color-purple);
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.btnBack:hover {
+  background: var(--color-bg-purple);
+}
+
+.btnBack:focus-visible {
+  outline: 0.1875rem solid var(--color-purple);
+  outline-offset: 0.125rem;
+}
+
+.heading {
+  flex: 1;
+  margin: 0;
+  font-size: calc(1.25rem * var(--font-scale, 1));
+  font-weight: 800;
+  color: var(--color-purple);
+  line-height: 1.2;
+  min-width: 0;
+}
+
+/* ===================================================
+   Content
+   =================================================== */
+.content {
+  padding: 3rem 1rem;
+}
+
+.contentColumn {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+/* ===================================================
+   Result card
+   =================================================== */
+.resultCard {
+  background: var(--color-bg-purple);
+  border-radius: 1rem;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.resultLabel {
+  margin: 0 0 0.75rem;
+  font-size: calc(0.875rem * var(--font-scale, 1));
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.resultScore {
+  margin: 0 0 1rem;
+  line-height: 1;
+}
+
+.resultCorrect {
+  font-size: calc(4rem * var(--font-scale, 1));
+  font-weight: 800;
+  color: var(--color-purple);
+}
+
+.resultTotal {
+  font-size: calc(1.5rem * var(--font-scale, 1));
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.resultStars {
+  display: block;
+  font-size: 2.25rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.25rem;
+  line-height: 1;
+}
+
+.resultMessage {
+  margin: 0;
+  font-size: calc(1rem * var(--font-scale, 1));
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+/* ===================================================
+   Action buttons
+   =================================================== */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btnPrimary {
+  width: 100%;
+  min-height: 4.1875rem;
+  padding: 0 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: calc(1rem * var(--font-scale, 1));
+  font-weight: 600;
+  color: var(--color-white);
+  background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
+}
+
+.btnPrimary:hover {
+  background: var(--color-primary);
+}
+
+.btnPrimary:focus-visible {
+  outline: 0.1875rem solid var(--color-primary);
+  outline-offset: 0.125rem;
+}
+
+.btnSecondary {
+  width: 100%;
+  min-height: 4.1875rem;
+  padding: 0 1.5rem;
+  border: 0.125rem solid var(--color-purple);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: calc(1rem * var(--font-scale, 1));
+  font-weight: 600;
+  color: var(--color-purple);
+  background: var(--color-white);
+}
+
+.btnSecondary:hover {
+  background: var(--color-bg-purple);
+}
+
+.btnSecondary:focus-visible {
+  outline: 0.1875rem solid var(--color-purple);
+  outline-offset: 0.125rem;
+}
+
+/* ===================================================
+   Responsive
+   =================================================== */
+@media (min-width: 600px) and (orientation: portrait) {
+  .header {
+    padding: 1.5rem 2rem;
+  }
+
+  .content {
+    padding: 3rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) and (orientation: landscape) {
+  .header {
+    padding: 1.5rem 5rem;
+  }
+
+  .content {
+    padding: 4rem 5rem;
+  }
+
+  .actions {
+    flex-direction: row;
+  }
+}

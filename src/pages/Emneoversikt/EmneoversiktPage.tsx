@@ -119,6 +119,11 @@ export function EmneoversiktPage() {
                     title={activity.title}
                     description={activity.description}
                     variant="aktivitet"
+                    onClick={
+                      activity.type === 'quiz'
+                        ? () => navigate(`/kapittel/${chapterId}/quiz/${activity.id}`)
+                        : undefined
+                    }
                   />
                 </li>
               ))}

@@ -1,0 +1,280 @@
+/* ===================================================
+   Page shell
+   =================================================== */
+.page {
+  min-height: 100dvh;
+  background-color: var(--color-white);
+}
+
+/* ===================================================
+   Sticky header
+   =================================================== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-white);
+  border-bottom: 0.0625rem solid var(--color-border);
+  padding: 1rem 1rem 0.75rem;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btnBack {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.75rem;
+  padding: 0 0.75rem 0 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: calc(0.875rem * var(--font-scale, 1));
+  font-weight: 600;
+  color: var(--color-purple);
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.btnBack:hover {
+  background: var(--color-bg-purple);
+}
+
+.btnBack:focus-visible {
+  outline: 0.1875rem solid var(--color-purple);
+  outline-offset: 0.125rem;
+}
+
+.heading {
+  flex: 1;
+  margin: 0;
+  font-size: calc(1.25rem * var(--font-scale, 1));
+  font-weight: 800;
+  color: var(--color-purple);
+  line-height: 1.2;
+  min-width: 0;
+}
+
+.headerMeta {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ===================================================
+   Content column
+   =================================================== */
+.content {
+  padding: 2rem 1rem 3rem;
+}
+
+.contentColumn {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+/* ===================================================
+   Progress bar
+   =================================================== */
+.progressSection {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.progressBar {
+  display: flex;
+  gap: 0.375rem;
+  flex: 1;
+}
+
+/* Each segment: dark border satisfies WCAG 1.4.11 (Non-text Contrast) */
+.segment {
+  flex: 1;
+  height: 0.75rem;
+  border-radius: 0.375rem;
+  border: 0.125rem solid var(--color-text);
+  background: var(--color-white);
+}
+
+.segmentFilled {
+  background: var(--color-purple);
+}
+
+.progressCounter {
+  font-size: calc(0.875rem * var(--font-scale, 1));
+  color: var(--color-text-muted);
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ===================================================
+   Question block
+   =================================================== */
+.questionBlock {
+  margin-bottom: 1.75rem;
+}
+
+.questionText {
+  margin: 0 0 0.5rem;
+  font-size: calc(1.375rem * var(--font-scale, 1));
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+.questionHint {
+  margin: 0;
+  font-size: calc(0.875rem * var(--font-scale, 1));
+  color: var(--color-text-muted);
+}
+
+/* ===================================================
+   Answer grid — 2×2 on tablet landscape
+   =================================================== */
+.answerGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.answerCard {
+  min-height: 9.3125rem;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  background: var(--color-bg-purple);
+  border: 0.125rem solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-family);
+  font-size: calc(1rem * var(--font-scale, 1));
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.4;
+  width: 100%;
+  transition: background 0.1s ease, color 0.1s ease, border-color 0.1s ease;
+}
+
+.answerCard:hover:not(:disabled):not(.answerSelected) {
+  border-color: var(--color-purple);
+}
+
+.answerCard:focus-visible {
+  outline: 0.1875rem solid var(--color-purple);
+  outline-offset: 0.125rem;
+}
+
+.answerSelected {
+  background: var(--color-purple);
+  color: var(--color-white);
+}
+
+/* Correct answer chosen by user */
+.answerCorrect {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+}
+
+/* Correct answer revealed when user picked wrong one */
+.answerRevealedCorrect {
+  background: var(--color-primary);
+  color: var(--color-white);
+  opacity: 0.85;
+}
+
+/* Wrong answer chosen by user */
+.answerIncorrect {
+  background: var(--color-error);
+  color: var(--color-white);
+  border-color: var(--color-error);
+}
+
+/* Prevents hover effect after checking */
+.answerLocked {
+  cursor: default;
+}
+
+/* ===================================================
+   "Sjekk svar" / "Neste spørsmål" button
+   =================================================== */
+.btnSjekk {
+  width: 100%;
+  min-height: 4.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: calc(1.125rem * var(--font-scale, 1));
+  font-weight: 700;
+  color: var(--color-white);
+  background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
+  transition: background 0.1s ease;
+}
+
+.btnSjekk:hover:not(:disabled) {
+  background: var(--color-primary);
+}
+
+.btnSjekk:focus-visible {
+  outline: 0.1875rem solid var(--color-primary);
+  outline-offset: 0.125rem;
+}
+
+.btnSjekkDisabled {
+  background: var(--color-bg-purple);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+/* ===================================================
+   Responsive
+   =================================================== */
+@media (min-width: 600px) and (orientation: portrait) {
+  .header {
+    padding: 1.25rem 2rem 1rem;
+  }
+
+  .heading {
+    font-size: calc(1.5rem * var(--font-scale, 1));
+  }
+
+  .content {
+    padding: 2.5rem 2rem 3rem;
+  }
+
+  .answerGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) and (orientation: landscape) {
+  .header {
+    padding: 1.5rem 5rem 1rem;
+  }
+
+  .heading {
+    font-size: calc(1.75rem * var(--font-scale, 1));
+  }
+
+  .content {
+    padding: 3rem 5rem 4rem;
+  }
+
+  .answerGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

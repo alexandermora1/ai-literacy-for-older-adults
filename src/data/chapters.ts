@@ -8,6 +8,7 @@ export interface Activity {
   id: number;
   title: string;
   description: string;
+  type: 'quiz' | 'activity';
 }
 
 export interface Chapter {
@@ -31,7 +32,7 @@ export const CHAPTERS: Chapter[] = [
       { id: 5, title: 'Oppsummering', description: 'Gjennomgang av det du har lært om KI' },
     ],
     activities: [
-      { id: 1, title: 'Quiz: Introduksjon til KI', description: 'Test kunnskapen din om det du har lært' },
+      { id: 1, title: 'Quiz: Introduksjon til KI', description: 'Test kunnskapen din om det du har lært', type: 'quiz' },
     ],
   },
   {
@@ -45,7 +46,7 @@ export const CHAPTERS: Chapter[] = [
       { id: 4, title: 'Prøv det selv', description: 'Øv deg på å bruke KI i praksis' },
     ],
     activities: [
-      { id: 1, title: 'Quiz: Selvtillit med KI', description: 'Test det du har lært i dette kapittelet' },
+      { id: 1, title: 'Quiz: Selvtillit med KI', description: 'Test det du har lært i dette kapittelet', type: 'quiz' },
     ],
   },
   {
@@ -58,8 +59,8 @@ export const CHAPTERS: Chapter[] = [
       { id: 3, title: 'Lag bilder med KI', description: 'Utforsk KI-verktøy for bilder' },
     ],
     activities: [
-      { id: 1, title: 'Quiz: Generativ KI', description: 'Test kunnskapen din om generativ KI' },
-      { id: 2, title: 'Utfordring: Lag noe nytt', description: 'Bruk KI til å lage noe kreativt selv' },
+      { id: 1, title: 'Quiz: Generativ KI', description: 'Test kunnskapen din om generativ KI', type: 'quiz' },
+      { id: 2, title: 'Utfordring: Lag noe nytt', description: 'Bruk KI til å lage noe kreativt selv', type: 'activity' },
     ],
   },
   {
@@ -73,7 +74,7 @@ export const CHAPTERS: Chapter[] = [
       { id: 4, title: 'Sikkerhet i smarthjem', description: 'Hold hjemmet ditt trygt' },
     ],
     activities: [
-      { id: 1, title: 'Quiz: KI i smarthjem', description: 'Test det du har lært om smarthjem' },
+      { id: 1, title: 'Quiz: KI i smarthjem', description: 'Test det du har lært om smarthjem', type: 'quiz' },
     ],
   },
   {
@@ -87,7 +88,7 @@ export const CHAPTERS: Chapter[] = [
       { id: 4, title: 'Dine rettigheter', description: 'Lær om dine digitale rettigheter' },
     ],
     activities: [
-      { id: 1, title: 'Quiz: Trygg med KI', description: 'Test det du har lært om sikkerhet' },
+      { id: 1, title: 'Quiz: Trygg med KI', description: 'Test det du har lært om sikkerhet', type: 'quiz' },
     ],
   },
   {
@@ -96,7 +97,7 @@ export const CHAPTERS: Chapter[] = [
     icon: '🏁',
     topics: [],
     activities: [
-      { id: 1, title: 'Avsluttende spørreskjema', description: 'Ta det avsluttende spørreskjemaet og fullfør kurset' },
+      { id: 1, title: 'Avsluttende spørreskjema', description: 'Ta det avsluttende spørreskjemaet og fullfør kurset', type: 'activity' },
     ],
   },
 ];
