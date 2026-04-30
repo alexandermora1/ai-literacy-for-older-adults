@@ -4,7 +4,7 @@ import { PageHeaderActions } from '../../components/PageHeaderActions/PageHeader
 import { TextSizeControl } from '../../components/TextSizeControl/TextSizeControl';
 import { useTextScale } from '../../hooks/useTextScale';
 import { getChapterById } from '../../data/chapters';
-import { getQuiz } from '../../data/quizzes';
+import { getQuiz, type QuizAnswerRecord } from '../../data/quizzes';
 import styles from './QuizPage.module.css';
 
 function BackArrow() {
@@ -34,6 +34,7 @@ export function QuizPage() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [hasChecked, setHasChecked] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
+  const [answers, setAnswers] = useState<QuizAnswerRecord[]>([]);
 
   if (!chapter || !quiz) {
     return <Navigate to="/kursoversikt" replace />;
@@ -49,16 +50,19 @@ export function QuizPage() {
 
   const handleCheck = () => {
     if (!selectedId) return;
-    if (selectedId === question.correctAnswerId) {
-      setCorrectCount((n) => n + 1);
-    }
+    const isCorrect = selectedId === question.correctAnswerId;
+    if (isCorrect) setCorrectCount((n) => n + 1);
+    setAnswers((prev) => [
+      ...prev,
+      { questionId: question.id, selectedAnswerId: selectedId, correct: isCorrect },
+    ]);
     setHasChecked(true);
   };
 
   const handleAdvance = () => {
     if (isLastQuestion) {
       navigate(`/kapittel/${kapitelId}/quiz/${quizId}/resultat`, {
-        state: { correct: correctCount, total: quiz.questions.length, kapitelId, quizId },
+        state: { correct: correctCount, total: quiz.questions.length, kapitelId, quizId, answers },
       });
     } else {
       setCurrentIndex((i) => i + 1);

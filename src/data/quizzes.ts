@@ -3,6 +3,12 @@ export interface QuizAnswer {
   text: string;
 }
 
+export interface QuizAnswerRecord {
+  questionId: number;
+  selectedAnswerId: number;
+  correct: boolean;
+}
+
 export interface QuizQuestion {
   id: number;
   question: string;
