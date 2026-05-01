@@ -7,6 +7,7 @@ import { QuizPage } from './pages/Quiz/QuizPage';
 import { QuizResultatPage } from './pages/QuizResultat/QuizResultatPage';
 import { NyttMerkePage } from './pages/NyttMerke/NyttMerkePage';
 import { HjelpPage } from './pages/Hjelp/HjelpPage';
+import { MinFremgangPage } from './pages/MinFremgang/MinFremgangPage';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/kapittel/:kapitelId/quiz/:quizId/resultat" element={<QuizResultatPage />} />
         <Route path="/kapittel/:kapitelId/quiz/:quizId/merke" element={<NyttMerkePage />} />
         <Route path="/hjelp" element={<HjelpPage />} />
+        <Route path="/fremgang" element={<MinFremgangPage />} />
       </Routes>
     </HashRouter>
   );

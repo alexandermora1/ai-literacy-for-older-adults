@@ -10,6 +10,7 @@ export function PageHeaderActions() {
         className={styles.btnPrimary}
         type="button"
         aria-label="Se fremgang i kurset"
+        onClick={() => navigate('/fremgang')}
       >
         Se fremgang
       </button>
