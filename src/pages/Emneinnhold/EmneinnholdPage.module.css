@@ -1,13 +1,15 @@
 /* ===================================================
-   Page shell — body scrolls naturally
+   Page shell
    =================================================== */
 .page {
   min-height: 100dvh;
   background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
 }
 
 /* ===================================================
-   Sticky header
+   Sticky header — single row: back | text-size | actions
    =================================================== */
 .header {
   position: sticky;
@@ -15,14 +17,11 @@
   z-index: 10;
   background: var(--color-white);
   border-bottom: 0.0625rem solid var(--color-border);
-  padding: 1rem 1rem 0.75rem;
-}
-
-.headerTop {
+  padding: 0.75rem 1rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
+  justify-content: space-between;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
@@ -53,55 +52,88 @@
   outline-offset: 0.125rem;
 }
 
-.heading {
+/* ===================================================
+   Scrollable content area
+   Padding-bottom reserves space for the fixed bottom nav
+   =================================================== */
+.content {
   flex: 1;
-  margin: 0;
-  font-size: calc(1.375rem * var(--font-scale, 1));
-  font-weight: 800;
-  color: var(--color-primary);
-  line-height: 1.2;
-  min-width: 0;
+  padding: 2rem 1rem 8rem;
+}
+
+.contentColumn {
+  max-width: 44rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 /* ===================================================
-   Meta row: time · position · TextSizeControl
+   Title block — h1 + meta row
    =================================================== */
-.headerMeta {
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.heading {
+  margin: 0;
+  font-size: calc(2rem * var(--font-scale, 1));
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1.15;
+}
+
+.metaRow {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.metaPosition {
+  font-size: calc(0.9375rem * var(--font-scale, 1));
+  color: var(--color-text-muted);
 }
 
 .metaTime {
   display: flex;
   align-items: center;
   gap: 0.375rem;
-  font-size: calc(0.875rem * var(--font-scale, 1));
+  font-size: calc(0.9375rem * var(--font-scale, 1));
   color: var(--color-text-muted);
-}
-
-.metaPosition {
-  font-size: calc(0.875rem * var(--font-scale, 1));
-  color: var(--color-text-muted);
-  flex: 1;
 }
 
 /* ===================================================
-   Scrollable content area
-   Padding-bottom reserves space for the fixed bottom nav
+   Body content — paragraphs and headings
    =================================================== */
-.content {
-  padding: 2rem 1rem 8rem;
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.contentColumn {
-  max-width: 80rem;
-  margin: 0 auto;
+.leadParagraph {
+  margin: 0 0 1.5rem;
+  font-size: calc(1rem * var(--font-scale, 1));
+  font-style: italic;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.65;
+}
+
+.sectionHeading {
+  margin: 1rem 0 0.375rem;
+  font-size: calc(1rem * var(--font-scale, 1));
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.4;
 }
 
 .paragraph {
-  margin: 0 0 1.5rem;
+  margin: 0 0 1rem;
   font-size: calc(1rem * var(--font-scale, 1));
   color: var(--color-text);
   line-height: 1.7;
@@ -125,29 +157,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
-/* Outlined "Forrige emne" */
+/* Slot holds Forrige emne or stays empty — keeps Neste emne right-aligned */
+.btnPrevSlot {
+  flex: 1;
+  display: flex;
+}
+
+/* Outlined "← Forrige emne" — muted green border, muted text */
 .btnPrev {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  height: 4.1875rem;
-  padding: 0 1.5rem;
-  border: 0.125rem solid var(--color-primary);
+  min-height: 4.1875rem;
+  padding: 0 1.25rem;
+  border: 0.125rem solid var(--color-border);
   border-radius: 0.5rem;
   cursor: pointer;
   font-family: var(--font-family);
   font-size: calc(1rem * var(--font-scale, 1));
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--color-text-muted);
   background: var(--color-white);
-  min-width: 11rem;
+  min-width: 10rem;
 }
 
 .btnPrev:hover {
-  background: var(--color-bg-green);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .btnPrev:focus-visible {
@@ -155,12 +194,12 @@
   outline-offset: 0.125rem;
 }
 
-/* Filled "Neste emne" / "Tilbake til emneoversikt" */
-.btnNextPrimary {
+/* Filled "Neste emne →" — green gradient */
+.btnNext {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  height: 4.1875rem;
+  min-height: 4.1875rem;
   padding: 0 1.5rem;
   border: none;
   border-radius: 0.5rem;
@@ -170,33 +209,32 @@
   font-weight: 600;
   color: var(--color-white);
   background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
-  min-width: 11rem;
+  min-width: 10rem;
 }
 
-.btnNextPrimary:hover {
+.btnNext:hover {
   background: var(--color-primary);
 }
 
-.btnNextPrimary:focus-visible {
+.btnNext:focus-visible {
   outline: 0.1875rem solid var(--color-primary);
   outline-offset: 0.125rem;
 }
 
 /* ===================================================
-   Responsive
+   Responsive — tablet portrait
    =================================================== */
-
 @media (min-width: 600px) and (orientation: portrait) {
   .header {
-    padding: 1.25rem 2rem 1rem;
-  }
-
-  .heading {
-    font-size: calc(1.75rem * var(--font-scale, 1));
+    padding: 0.875rem 2rem;
   }
 
   .content {
     padding: 2.5rem 2rem 8rem;
+  }
+
+  .heading {
+    font-size: calc(2.25rem * var(--font-scale, 1));
   }
 
   .bottomNav {
@@ -204,17 +242,20 @@
   }
 }
 
+/* ===================================================
+   Responsive — tablet landscape (primary layout)
+   =================================================== */
 @media (min-width: 1024px) and (orientation: landscape) {
   .header {
-    padding: 1.5rem 5rem 1rem;
-  }
-
-  .heading {
-    font-size: calc(2rem * var(--font-scale, 1));
+    padding: 0.875rem 5rem;
   }
 
   .content {
     padding: 3rem 5rem 8rem;
+  }
+
+  .heading {
+    font-size: calc(2.5rem * var(--font-scale, 1));
   }
 
   .bottomNav {

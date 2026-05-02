@@ -49,7 +49,7 @@ export function ModuleCard({
   const isCompleted = variant === 'completed';
   const progressText = completionLabel ?? `${completedTopics} av ${totalTopics} deler fullført`;
   const starsLabel = stars > 0 ? `, ${stars} av 3 stjerner` : '';
-  const ariaLabel = `${title}, Kapittel ${chapterNumber}, ${progressText}${starsLabel}`;
+  const ariaLabel = `Kapittel ${chapterNumber}: ${title}, ${progressText}${starsLabel}`;
 
   return (
     <button
@@ -58,10 +58,12 @@ export function ModuleCard({
       aria-label={ariaLabel}
       type="button"
     >
-      {!isCompleted && (
-        <span className={styles.accentStripe} aria-hidden="true" />
-      )}
+      {/* Icon — left side */}
+      <span className={styles.iconBox} aria-hidden="true">
+        {icon}
+      </span>
 
+      {/* Text body */}
       <div className={styles.body}>
         <span className={styles.chapterLabel}>KAPITTEL {chapterNumber}</span>
         <span className={styles.title}>{title}</span>
@@ -77,10 +79,7 @@ export function ModuleCard({
         )}
       </div>
 
-      <span className={styles.iconBox} aria-hidden="true">
-        {icon}
-      </span>
-
+      {/* Chevron — right side */}
       <span className={styles.chevron}>
         <ChevronRight />
       </span>

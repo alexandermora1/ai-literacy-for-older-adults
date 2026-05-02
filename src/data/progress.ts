@@ -15,7 +15,7 @@ export interface Progress {
 
 // Placeholder: chapter 1 complete (3 stars), chapter 2 in progress (1 av 4 deler)
 export const PLACEHOLDER_PROGRESS: Progress = {
-  earnedBadgeIds: ['ki-utforsker'],
+  earnedBadgeIds: ['ki-utforsker', 'lurer-pa-mer', 'enda-bedre', 'grundig'],
   chapterProgress: CHAPTERS.map((ch) => {
     if (ch.id === 1) {
       return {

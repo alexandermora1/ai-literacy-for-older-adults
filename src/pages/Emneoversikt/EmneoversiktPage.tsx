@@ -8,23 +8,14 @@ import styles from './EmneoversiktPage.module.css';
 
 function BackArrow() {
   return (
-    <svg
-      width="10"
-      height="18"
-      viewBox="0 0 10 18"
-      fill="none"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path
-        d="M9 1L1 9L9 17"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" aria-hidden="true" focusable="false">
+      <path d="M9 1L1 9L9 17" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
+}
+
+function plural(count: number, singular: string, pluralForm: string): string {
+  return `${count} ${count === 1 ? singular : pluralForm}`;
 }
 
 export function EmneoversiktPage() {
@@ -41,12 +32,21 @@ export function EmneoversiktPage() {
 
   const completedTopics = 0;
   const completedActivities = 0;
+  const hasTopics = chapter.topics.length > 0;
+  const hasActivities = chapter.activities.length > 0;
+
+  const subtitle = `Det er ${plural(chapter.topics.length, 'emne', 'emner')} og ${plural(
+    chapter.activities.length,
+    'aktivitet',
+    'aktiviteter'
+  )} i dette kapittelet.`;
 
   return (
     <div
       className={styles.page}
       style={{ '--font-scale': fontScale } as React.CSSProperties}
     >
+      {/* ── Header: back | TextSizeControl | actions ── */}
       <header className={styles.header}>
         <button
           className={styles.btnBack}
@@ -55,81 +55,73 @@ export function EmneoversiktPage() {
           aria-label="Gå tilbake til kursoversikt"
         >
           <BackArrow />
-          <span>Kursoversikt</span>
+          <span>Tilbake til kursoversikt</span>
         </button>
 
-        <h1 className={styles.heading}>{chapter.title}</h1>
-
-        <PageHeaderActions />
-      </header>
-
-      <div className={styles.metaRow}>
         <TextSizeControl
           onDecrease={decrease}
           onIncrease={increase}
           atMin={atMin}
           atMax={atMax}
         />
-      </div>
 
-      <main>
-        {chapter.topics.length > 0 && (
-          <section aria-labelledby="emner-heading" className={styles.section}>
-            <div className={`${styles.sectionPill} ${styles.sectionPillGreen}`}>
-              <span className={styles.sectionPillStripe} aria-hidden="true" />
-              <span id="emner-heading" className={styles.sectionPillLabel}>
-                Emner{' '}
-                <span className={styles.sectionPillCount}>
-                  · {completedTopics} av {chapter.topics.length} fullført
-                </span>
-              </span>
-            </div>
+        <PageHeaderActions />
+      </header>
 
-            <ul className={styles.cardList} aria-label="Emner i dette kapittelet">
-              {chapter.topics.map((topic) => (
-                <li key={topic.id}>
-                  <TopicCard
-                    title={topic.title}
-                    description={topic.description}
-                    variant="emne"
-                    onClick={() => navigate(`/kapittel/${chapterId}/emne/${topic.id}`)}
-                  />
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+      {/* ── Page content ── */}
+      <main className={styles.content}>
+        <h1 className={styles.heading}>{chapter.title}</h1>
+        <p className={styles.subtitle}>{subtitle}</p>
 
-        {chapter.activities.length > 0 && (
-          <section aria-labelledby="aktiviteter-heading" className={styles.section}>
-            <div className={`${styles.sectionPill} ${styles.sectionPillPurple}`}>
-              <span className={styles.sectionPillStripe} aria-hidden="true" />
-              <span id="aktiviteter-heading" className={styles.sectionPillLabel}>
-                Aktiviteter{' '}
-                <span className={styles.sectionPillCount}>
-                  · {completedActivities} av {chapter.activities.length} fullført
-                </span>
-              </span>
-            </div>
+        <div className={`${styles.columnsRow} ${!hasTopics || !hasActivities ? styles.singleColumn : ''}`}>
 
-            <ul className={styles.cardList} aria-label="Aktiviteter i dette kapittelet">
-              {chapter.activities.map((activity) => (
-                <li key={activity.id}>
-                  <TopicCard
-                    title={activity.title}
-                    description={activity.description}
-                    variant="aktivitet"
-                    onClick={
-                      activity.type === 'quiz'
-                        ? () => navigate(`/kapittel/${chapterId}/quiz/${activity.id}`)
-                        : undefined
-                    }
-                  />
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+          {/* Emner column */}
+          {hasTopics && (
+            <section className={styles.column} aria-labelledby="emner-heading">
+              <h2 id="emner-heading" className={`${styles.columnLabel} ${styles.emneLabel}`}>
+                Emner fullført: {completedTopics} av {chapter.topics.length}
+              </h2>
+              <ul className={styles.cardList} role="list">
+                {chapter.topics.map((topic) => (
+                  <li key={topic.id}>
+                    <TopicCard
+                      title={topic.title}
+                      description={topic.description}
+                      variant="emne"
+                      onClick={() => navigate(`/kapittel/${chapterId}/emne/${topic.id}`)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Aktiviteter column */}
+          {hasActivities && (
+            <section className={styles.column} aria-labelledby="aktiviteter-heading">
+              <h2 id="aktiviteter-heading" className={`${styles.columnLabel} ${styles.aktivitetLabel}`}>
+                Aktiviteter fullført: {completedActivities} av {chapter.activities.length}
+              </h2>
+              <ul className={styles.cardList} role="list">
+                {chapter.activities.map((activity) => (
+                  <li key={activity.id}>
+                    <TopicCard
+                      title={activity.title}
+                      description={activity.description}
+                      variant="aktivitet"
+                      onClick={
+                        activity.type === 'quiz'
+                          ? () => navigate(`/kapittel/${chapterId}/quiz/${activity.id}`)
+                          : undefined
+                      }
+                    />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+        </div>
       </main>
     </div>
   );

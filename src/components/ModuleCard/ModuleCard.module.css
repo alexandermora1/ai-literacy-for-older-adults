@@ -6,15 +6,17 @@
   align-items: center;
   gap: 1rem;
   width: 100%;
-  min-height: 12.375rem;
-  padding: 1.25rem 1.5rem;
-  border: none;
-  border-radius: 0.75rem;
+  min-height: 7.5rem;
+  padding: 1.25rem;
+  border-radius: 0.875rem;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
   text-align: left;
-  transition: box-shadow 0.15s ease;
+  font-family: var(--font-family);
+  transition: filter 0.15s ease;
+}
+
+.card:hover {
+  filter: brightness(0.96);
 }
 
 .card:focus-visible {
@@ -23,18 +25,15 @@
 }
 
 /* ===================================================
-   Completed variant
+   Completed variant — dark green fill
    =================================================== */
 .completed {
   background-color: var(--color-primary);
-}
-
-.completed:hover {
-  background-color: #1a4733;
+  border: none;
 }
 
 .completed .chapterLabel {
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.70);
 }
 
 .completed .title {
@@ -42,7 +41,7 @@
 }
 
 .completed .completionText {
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.70);
 }
 
 .completed .chevron {
@@ -50,20 +49,16 @@
 }
 
 /* ===================================================
-   In-progress variant
+   In-progress variant — white card, green border + left stripe
    =================================================== */
 .inProgress {
   background-color: var(--color-white);
-  box-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.08);
-  padding-left: 2rem;
-}
-
-.inProgress:hover {
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.14);
+  border: 0.125rem solid var(--color-primary);
+  border-left: 0.75rem solid var(--color-primary);
 }
 
 .inProgress .chapterLabel {
-  color: var(--color-text-secondary);
+  color: var(--color-primary);
 }
 
 .inProgress .title {
@@ -71,7 +66,7 @@
 }
 
 .inProgress .completionText {
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
 }
 
 .inProgress .chevron {
@@ -79,17 +74,19 @@
 }
 
 /* ===================================================
-   Accent stripe (in-progress only)
-   3px top/bottom inset mirrors Figma: 192px stripe in 198px card
+   Icon box — left side, always light green
    =================================================== */
-.accentStripe {
-  position: absolute;
-  left: 0;
-  top: 0.1875rem;
-  bottom: 0.1875rem;
-  width: 0.75rem;
-  background-color: var(--color-primary);
-  border-radius: 0 0.25rem 0.25rem 0;
+.iconBox {
+  flex-shrink: 0;
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 0.75rem;
+  background-color: var(--color-bg-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.25rem;
+  line-height: 1;
 }
 
 /* ===================================================
@@ -105,7 +102,7 @@
 
 .chapterLabel {
   font-size: calc(0.75rem * var(--font-scale, 1));
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -117,38 +114,22 @@
 }
 
 .completionText {
-  font-size: calc(0.875rem * var(--font-scale, 1));
+  font-size: calc(0.9375rem * var(--font-scale, 1));
 }
 
 .stars {
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  margin-top: 0.375rem;
+  margin-top: 0.5rem;
+  font-size: 1.375rem;
+  letter-spacing: 0.05em;
   line-height: 1;
 }
 
 /* ===================================================
-   Icon box
-   =================================================== */
-.iconBox {
-  flex-shrink: 0;
-  width: 5rem;
-  height: 5rem;
-  border-radius: 0.625rem;
-  background-color: var(--color-bg-green);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  line-height: 1;
-}
-
-/* ===================================================
-   Chevron
+   Chevron — right side
    =================================================== */
 .chevron {
   flex-shrink: 0;
   display: flex;
   align-items: center;
+  padding-left: 0.25rem;
 }
-

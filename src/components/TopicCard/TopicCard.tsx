@@ -9,7 +9,7 @@ interface TopicCardProps {
   onClick?: () => void;
 }
 
-function ChevronRight() {
+function ChevronRight({ variant }: { variant: TopicCardVariant }) {
   return (
     <svg
       width="10"
@@ -18,6 +18,7 @@ function ChevronRight() {
       fill="none"
       aria-hidden="true"
       focusable="false"
+      className={variant === 'emne' ? styles.chevronEmne : styles.chevronAktivitet}
     >
       <path
         d="M1 1L9 9L1 17"
@@ -31,24 +32,20 @@ function ChevronRight() {
 }
 
 export function TopicCard({ title, description, variant, onClick }: TopicCardProps) {
-  const isEmne = variant === 'emne';
-
   return (
     <button
-      className={`${styles.card} ${isEmne ? styles.emne : styles.aktivitet}`}
+      className={`${styles.card} ${variant === 'emne' ? styles.emne : styles.aktivitet}`}
       onClick={onClick}
       aria-label={`${title}: ${description}`}
       type="button"
     >
-      <span className={styles.accentStripe} aria-hidden="true" />
-
       <div className={styles.body}>
         <span className={styles.title}>{title}</span>
         <span className={styles.description}>{description}</span>
       </div>
 
       <span className={styles.chevron}>
-        <ChevronRight />
+        <ChevronRight variant={variant} />
       </span>
     </button>
   );

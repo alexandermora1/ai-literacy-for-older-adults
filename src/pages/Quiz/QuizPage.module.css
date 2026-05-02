@@ -1,29 +1,18 @@
 /* ===================================================
-   Page shell
+   Page shell — light purple background
    =================================================== */
 .page {
   min-height: 100dvh;
-  background-color: var(--color-white);
+  background-color: var(--color-bg-purple);
+  display: flex;
+  flex-direction: column;
 }
 
 /* ===================================================
-   Sticky header
+   Minimal header — back button only, no border
    =================================================== */
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: var(--color-white);
-  border-bottom: 0.0625rem solid var(--color-border);
-  padding: 1rem 1rem 0.75rem;
-}
-
-.headerTop {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
-  flex-wrap: wrap;
+  padding: 1rem 1rem 0;
 }
 
 .btnBack {
@@ -38,14 +27,14 @@
   font-family: var(--font-family);
   font-size: calc(0.875rem * var(--font-scale, 1));
   font-weight: 600;
-  color: var(--color-purple);
+  color: var(--color-text-muted);
   border-radius: 0.5rem;
   flex-shrink: 0;
   white-space: nowrap;
 }
 
 .btnBack:hover {
-  background: var(--color-bg-purple);
+  background: rgba(74, 58, 128, 0.08);
 }
 
 .btnBack:focus-visible {
@@ -53,26 +42,12 @@
   outline-offset: 0.125rem;
 }
 
-.heading {
-  flex: 1;
-  margin: 0;
-  font-size: calc(1.25rem * var(--font-scale, 1));
-  font-weight: 800;
-  color: var(--color-purple);
-  line-height: 1.2;
-  min-width: 0;
-}
-
-.headerMeta {
-  display: flex;
-  justify-content: flex-end;
-}
-
 /* ===================================================
    Content column
    =================================================== */
 .content {
-  padding: 2rem 1rem 3rem;
+  flex: 1;
+  padding: 1.5rem 1rem 3rem;
 }
 
 .contentColumn {
@@ -81,52 +56,84 @@
 }
 
 /* ===================================================
-   Progress bar
+   Page heading — h1 in content area
    =================================================== */
-.progressSection {
+.heading {
+  margin: 0 0 2rem;
+  font-size: calc(1.75rem * var(--font-scale, 1));
+  font-weight: 800;
+  color: var(--color-purple);
+  line-height: 1.2;
+}
+
+/* ===================================================
+   Dot progress track
+   =================================================== */
+.progressTrack {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.75rem; /* room for the dot counter label */
 }
 
-.progressBar {
+/* Connecting line behind the dots */
+.progressTrack::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  height: 0.1875rem;
+  background: var(--color-purple);
+  margin-top: -0.875rem; /* shift up to align with dot centers, not label area */
+}
+
+.dotWrapper {
+  position: relative;
   display: flex;
-  gap: 0.375rem;
-  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
 }
 
-/* Each segment: dark border satisfies WCAG 1.4.11 (Non-text Contrast) */
-.segment {
-  flex: 1;
-  height: 0.75rem;
-  border-radius: 0.375rem;
-  border: 0.125rem solid var(--color-text);
-  background: var(--color-white);
-}
-
-.segmentFilled {
+/* Default dot — small filled circle */
+.dot {
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 50%;
   background: var(--color-purple);
 }
 
-.progressCounter {
+/* Active/current dot — larger */
+.dotActive {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+/* Counter "X/Y" beneath the active dot */
+.dotLabel {
+  position: absolute;
+  top: calc(100% + 0.375rem);
+  font-family: var(--font-family);
   font-size: calc(0.875rem * var(--font-scale, 1));
-  color: var(--color-text-muted);
   font-weight: 600;
+  color: var(--color-purple);
   white-space: nowrap;
-  flex-shrink: 0;
 }
 
 /* ===================================================
    Question block
    =================================================== */
 .questionBlock {
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .questionText {
-  margin: 0 0 0.5rem;
-  font-size: calc(1.375rem * var(--font-scale, 1));
+  margin: 0 0 0.375rem;
+  font-size: calc(1.25rem * var(--font-scale, 1));
   font-weight: 700;
   color: var(--color-text);
   line-height: 1.3;
@@ -134,12 +141,12 @@
 
 .questionHint {
   margin: 0;
-  font-size: calc(0.875rem * var(--font-scale, 1));
+  font-size: calc(0.9375rem * var(--font-scale, 1));
   color: var(--color-text-muted);
 }
 
 /* ===================================================
-   Answer grid — 2×2 on tablet landscape
+   Answer grid — 1 column mobile, 2×2 on portrait+
    =================================================== */
 .answerGrid {
   display: grid;
@@ -149,11 +156,11 @@
 }
 
 .answerCard {
-  min-height: 9.3125rem;
+  min-height: 5rem;
   padding: 1.25rem;
-  border-radius: 0.75rem;
+  border-radius: 0.875rem;
   background: var(--color-bg-purple);
-  border: 0.125rem solid transparent;
+  border: 0.125rem solid var(--color-purple);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -169,7 +176,7 @@
 }
 
 .answerCard:hover:not(:disabled):not(.answerSelected) {
-  border-color: var(--color-purple);
+  background: rgba(74, 58, 128, 0.12);
 }
 
 .answerCard:focus-visible {
@@ -177,9 +184,11 @@
   outline-offset: 0.125rem;
 }
 
+/* Selected — dark purple fill */
 .answerSelected {
   background: var(--color-purple);
   color: var(--color-white);
+  border-color: var(--color-purple);
 }
 
 /* Correct answer chosen by user */
@@ -189,11 +198,12 @@
   border-color: var(--color-primary);
 }
 
-/* Correct answer revealed when user picked wrong one */
+/* Correct answer revealed when user picked wrong */
 .answerRevealedCorrect {
   background: var(--color-primary);
   color: var(--color-white);
-  opacity: 0.85;
+  border-color: var(--color-primary);
+  opacity: 0.8;
 }
 
 /* Wrong answer chosen by user */
@@ -203,78 +213,89 @@
   border-color: var(--color-error);
 }
 
-/* Prevents hover effect after checking */
+/* Prevents hover after checking */
 .answerLocked {
   cursor: default;
 }
 
 /* ===================================================
-   "Sjekk svar" / "Neste spørsmål" button
+   "Sjekk svar" / advance button — purple gradient
    =================================================== */
 .btnSjekk {
   width: 100%;
   min-height: 4.5rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.875rem;
   cursor: pointer;
   font-family: var(--font-family);
   font-size: calc(1.125rem * var(--font-scale, 1));
   font-weight: 700;
   color: var(--color-white);
-  background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
+  background: linear-gradient(to bottom, var(--color-purple-light), var(--color-purple));
   transition: background 0.1s ease;
 }
 
 .btnSjekk:hover:not(:disabled) {
-  background: var(--color-primary);
+  background: var(--color-purple);
 }
 
 .btnSjekk:focus-visible {
-  outline: 0.1875rem solid var(--color-primary);
+  outline: 0.1875rem solid var(--color-purple);
   outline-offset: 0.125rem;
 }
 
 .btnSjekkDisabled {
-  background: var(--color-bg-purple);
-  color: var(--color-text-muted);
+  background: rgba(74, 58, 128, 0.25);
+  color: rgba(74, 58, 128, 0.5);
   cursor: not-allowed;
 }
 
 /* ===================================================
-   Responsive
+   Responsive — tablet portrait
    =================================================== */
 @media (min-width: 600px) and (orientation: portrait) {
   .header {
-    padding: 1.25rem 2rem 1rem;
-  }
-
-  .heading {
-    font-size: calc(1.5rem * var(--font-scale, 1));
+    padding: 1.25rem 2rem 0;
   }
 
   .content {
-    padding: 2.5rem 2rem 3rem;
+    padding: 2rem 2rem 3rem;
+  }
+
+  .heading {
+    font-size: calc(2rem * var(--font-scale, 1));
   }
 
   .answerGrid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .answerCard {
+    min-height: 8rem;
   }
 }
 
+/* ===================================================
+   Responsive — tablet landscape (primary layout)
+   =================================================== */
 @media (min-width: 1024px) and (orientation: landscape) {
   .header {
-    padding: 1.5rem 5rem 1rem;
-  }
-
-  .heading {
-    font-size: calc(1.75rem * var(--font-scale, 1));
+    padding: 1.5rem 5rem 0;
   }
 
   .content {
-    padding: 3rem 5rem 4rem;
+    padding: 2rem 5rem 4rem;
+  }
+
+  .heading {
+    font-size: calc(2.25rem * var(--font-scale, 1));
   }
 
   .answerGrid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .answerCard {
+    min-height: 9rem;
   }
 }

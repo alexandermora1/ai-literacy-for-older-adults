@@ -38,13 +38,72 @@ function ClockIcon() {
   );
 }
 
-const PLACEHOLDER_PARAGRAPHS = [
-  'Generativ KI er en form for kunstig intelligens som er i stand til å skape nytt, originalt innhold. Dette kan være tekst, bilder, musikk, video eller annet digitalt innhold. Teknologien er trent på store mengder eksisterende data, og bruker denne kunnskapen til å generere noe som ligner på, men ikke er en kopi av, det den har sett før.',
-  'De siste årene har generativ KI blitt tilgjengelig for vanlige folk gjennom enkle programmer og apper. Du har kanskje allerede prøvd å bruke en slik tjeneste uten å tenke over det. Chatbots som kan svare på spørsmål, apper som kan redigere bilder med ett klikk, eller programmer som kan skrive tekst — alt dette er eksempler på generativ KI.',
-  'Det som skiller generativ KI fra eldre former for KI, er evnen til å produsere innhold som ikke er forhåndsdefinert. En tradisjonell datamaskin utfører nøyaktig de instruksjonene den er programmert til. Generativ KI derimot kan finne opp noe nytt basert på mønstrene den har lært fra enorme mengder data.',
-  'Et kjent eksempel er språkmodeller som kan skrive sammenhengende tekst. Disse modellene er trent på milliarder av setninger fra bøker, artikler og nettsider. Når du stiller dem et spørsmål, genererer de et svar ord for ord, basert på hva de har lært om hva som naturlig kommer etter hvert ord i en bestemt sammenheng.',
-  'Det er viktig å huske at generativ KI ikke "forstår" innholdet det produserer på samme måte som et menneske gjør. KI har ikke følelser, meninger eller bevissthet. Det den gjør, er å gjenkjenne mønstre og bruke disse mønstrene til å lage noe som ser meningsfullt ut — men det er ikke alltid riktig eller pålitelig.',
-  'I dette emnet skal vi se nærmere på hvordan generativ KI fungerer i praksis, hvilke verktøy som er tilgjengelige for deg, og hvordan du kan bruke dem på en trygg og fornuftig måte i hverdagen. Vi vil også se på noen av begrensningene ved teknologien, slik at du vet når du bør dobbeltsjekke informasjonen du får.',
+type ContentBlock =
+  | { type: 'lead'; text: string }
+  | { type: 'paragraph'; text: string }
+  | { type: 'heading'; text: string };
+
+const PLACEHOLDER_CONTENT: ContentBlock[] = [
+  {
+    type: 'lead',
+    text: 'ChatGPT og lignende verktøy kan skrive tekst, svare på spørsmål og hjelpe deg med mye. Men hva er det egentlig?',
+  },
+  {
+    type: 'paragraph',
+    text: 'Du har kanskje hørt om ChatGPT i nyhetene. Det er et eksempel på det som kalles generativ KI – en type KI som kan lage nytt innhold, som tekst, bilder og musikk.',
+  },
+  {
+    type: 'paragraph',
+    text: 'Ordet "generativ" betyr rett og slett at den lager noe nytt. Du stiller et spørsmål eller gir den en oppgave, og den svarer med noe den har satt sammen selv – basert på alt den har lært.',
+  },
+  {
+    type: 'paragraph',
+    text: 'Det er litt som å snakke med en veldig belest venn. Du spør om noe, og vennen svarer med egne ord – selv om de har lest det et sted før.',
+  },
+  {
+    type: 'heading',
+    text: 'Hvordan fungerer det i praksis?',
+  },
+  {
+    type: 'paragraph',
+    text: 'Når du skriver noe til ChatGPT, leser den det du har skrevet og lager et svar ord for ord. Den velger hvert ord basert på hva som gir mest mening ut fra sammenhengen – litt som når du gjetter neste ord i en setning.',
+  },
+  {
+    type: 'paragraph',
+    text: 'ChatGPT har lært av enorme mengder tekst fra internett, bøker og artikler. Det gjør at den kan svare på spørsmål om nesten hva som helst – fra matlaging til historie til medisinske spørsmål.',
+  },
+  {
+    type: 'paragraph',
+    text: 'Du kommuniserer med den ved å skrive vanlig tekst, akkurat som du sender en melding. Du trenger ikke lære deg noen spesielle kommandoer eller koder.',
+  },
+  {
+    type: 'heading',
+    text: 'Eksempel fra hverdagen',
+  },
+  {
+    type: 'paragraph',
+    text: 'Si at du vil skrive et brev til barnebarna dine, men sliter med å finne de riktige ordene. Du kan be ChatGPT om hjelp: "Kan du hjelpe meg å skrive et hyggelig brev til barnebarna mine?" – og den vil komme med et forslag du kan bruke eller endre som du vil.',
+  },
+  {
+    type: 'paragraph',
+    text: 'Du kan også bruke den til å få forklart noe du lurer på. For eksempel: "Kan du forklare hva blodtrykk er på en enkel måte?" Den svarer deg med det samme, på vanlig norsk.',
+  },
+  {
+    type: 'heading',
+    text: 'Flere verktøy enn ChatGPT',
+  },
+  {
+    type: 'paragraph',
+    text: 'ChatGPT er det mest kjente verktøyet, men det finnes flere. Microsoft har et lignende verktøy som heter Copilot, og Google har ett som heter Gemini. Alle fungerer på omtrent samme måte – du skriver, og de svarer.',
+  },
+  {
+    type: 'paragraph',
+    text: 'I dette kurset bruker vi ChatGPT som eksempel, men det du lærer her gjelder for alle lignende verktøy.',
+  },
+  {
+    type: 'paragraph',
+    text: 'Husk: Generativ KI finner ikke svar i en database – den setter sammen svar basert på mønstre den har lært. Det betyr at den noen ganger kan ta feil, selv om svaret høres overbevisende ut. Det kommer vi tilbake til i emne 5.',
+  },
 ];
 
 export function EmneinnholdPage() {
@@ -76,55 +135,77 @@ export function EmneinnholdPage() {
       className={styles.page}
       style={{ '--font-scale': fontScale } as React.CSSProperties}
     >
-      {/* ── Sticky header ── */}
+      {/* ── Sticky header: back | text size | actions ── */}
       <header className={styles.header}>
-        <div className={styles.headerTop}>
-          <button
-            className={styles.btnBack}
-            type="button"
-            onClick={() => navigate(`/kapittel/${kapitelId}`)}
-            aria-label="Tilbake til emneoversikt"
-          >
-            <BackArrow />
-            <span>Tilbake til emneoversikt</span>
-          </button>
+        <button
+          className={styles.btnBack}
+          type="button"
+          onClick={() => navigate(`/kapittel/${kapitelId}`)}
+          aria-label="Tilbake til emneoversikt"
+        >
+          <BackArrow />
+          <span>Tilbake til emneoversikt</span>
+        </button>
 
-          <h1 className={styles.heading}>{topic.title}</h1>
+        <TextSizeControl
+          onDecrease={decrease}
+          onIncrease={increase}
+          atMin={atMin}
+          atMax={atMax}
+        />
 
-          <PageHeaderActions />
-        </div>
-
-        <div className={styles.headerMeta}>
-          <span className={styles.metaTime}>
-            <ClockIcon />
-            Ca. 3 min
-          </span>
-          <span className={styles.metaPosition}>
-            Emne {topicIndex + 1} av {topics.length}
-          </span>
-          <TextSizeControl
-            onDecrease={decrease}
-            onIncrease={increase}
-            atMin={atMin}
-            atMax={atMax}
-          />
-        </div>
+        <PageHeaderActions />
       </header>
 
       {/* ── Scrollable body ── */}
       <main className={styles.content}>
         <div className={styles.contentColumn}>
-          {PLACEHOLDER_PARAGRAPHS.map((text, i) => (
-            <p key={i} className={styles.paragraph}>
-              {text}
-            </p>
-          ))}
+
+          {/* Title and meta */}
+          <div className={styles.titleBlock}>
+            <h1 className={styles.heading}>{topic.title}</h1>
+            <div className={styles.metaRow}>
+              <span className={styles.metaPosition}>
+                Emne {topicIndex + 1} av {topics.length}
+              </span>
+              <span className={styles.metaTime}>
+                <ClockIcon />
+                Ca. 3 min
+              </span>
+            </div>
+          </div>
+
+          {/* Body content */}
+          <div className={styles.body}>
+            {PLACEHOLDER_CONTENT.map((block, i) => {
+              if (block.type === 'lead') {
+                return (
+                  <p key={i} className={styles.leadParagraph}>
+                    {block.text}
+                  </p>
+                );
+              }
+              if (block.type === 'heading') {
+                return (
+                  <h2 key={i} className={styles.sectionHeading}>
+                    {block.text}
+                  </h2>
+                );
+              }
+              return (
+                <p key={i} className={styles.paragraph}>
+                  {block.text}
+                </p>
+              );
+            })}
+          </div>
+
         </div>
       </main>
 
       {/* ── Fixed bottom navigation ── */}
       <nav className={styles.bottomNav} aria-label="Naviger mellom emner">
-        <div>
+        <div className={styles.btnPrevSlot}>
           {!isFirst && (
             <button
               className={styles.btnPrev}
@@ -140,7 +221,7 @@ export function EmneinnholdPage() {
 
         {isLast ? (
           <button
-            className={styles.btnNextPrimary}
+            className={styles.btnNext}
             type="button"
             onClick={() => navigate(`/kapittel/${kapitelId}`)}
             aria-label="Tilbake til emneoversikt"
@@ -149,7 +230,7 @@ export function EmneinnholdPage() {
           </button>
         ) : (
           <button
-            className={styles.btnNextPrimary}
+            className={styles.btnNext}
             type="button"
             onClick={() => navigate(`/kapittel/${kapitelId}/emne/${nextId}`)}
             aria-label="Gå til neste emne"

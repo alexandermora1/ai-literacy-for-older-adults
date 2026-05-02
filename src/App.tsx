@@ -20,7 +20,7 @@ function App() {
         <Route path="/kapittel/:kapitelId/emne/:emneId" element={<EmneinnholdPage />} />
         <Route path="/kapittel/:kapitelId/quiz/:quizId" element={<QuizPage />} />
         <Route path="/kapittel/:kapitelId/quiz/:quizId/resultat" element={<QuizResultatPage />} />
-        <Route path="/kapittel/:kapitelId/quiz/:quizId/merke" element={<NyttMerkePage />} />
+        <Route path="/merke" element={<NyttMerkePage />} />
         <Route path="/hjelp" element={<HjelpPage />} />
         <Route path="/fremgang" element={<MinFremgangPage />} />
       </Routes>

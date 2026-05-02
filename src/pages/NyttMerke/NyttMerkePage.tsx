@@ -1,66 +1,108 @@
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { PageHeaderActions } from '../../components/PageHeaderActions/PageHeaderActions';
+import { useState, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useTextScale } from '../../hooks/useTextScale';
-import type { Badge } from '../../data/badges';
+import { useProgress } from '../../hooks/useProgress';
+import { getBadgeById, getAllKapittelBadges, getAllSpesialBadges, type Badge } from '../../data/badges';
 import styles from './NyttMerkePage.module.css';
 
-interface MerkeState {
-  badge: Badge;
-  kapitelId: number;
-  quizId: number;
-}
+const TOTAL_BADGES = getAllKapittelBadges().length + getAllSpesialBadges().length;
 
 export function NyttMerkePage() {
-  const location = useLocation();
   const navigate = useNavigate();
   const { fontScale } = useTextScale();
+  const { newlyEarnedBadges, clearNewlyEarned, earnedBadges } = useProgress();
 
-  const state = location.state as MerkeState | null;
+  // Capture the list at mount so clearing the hook state doesn't affect rendering
+  const [badges] = useState<Badge[]>(() =>
+    newlyEarnedBadges
+      .map((id) => getBadgeById(id))
+      .filter((b): b is Badge => b !== undefined),
+  );
 
-  if (!state?.badge) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    clearNewlyEarned();
+  }, [clearNewlyEarned]);
+
+  if (badges.length === 0) {
     return <Navigate to="/kursoversikt" replace />;
   }
 
-  const { badge } = state;
+  const badge = badges[currentIndex];
+  const isLast = currentIndex === badges.length - 1;
+  const earnedCount = earnedBadges.length;
 
   return (
     <div
       className={styles.page}
       style={{ '--font-scale': fontScale } as React.CSSProperties}
     >
-      {/* Minimal top bar — keeps Se fremgang / Hjelp accessible */}
-      <div className={styles.topBar}>
-        <PageHeaderActions />
-      </div>
-
       <main className={styles.content}>
-        <h1 className={styles.heading}>Nytt merke!</h1>
 
-        <div className={styles.badgeIconWrapper} aria-hidden="true">
-          <span className={styles.badgeIcon}>{badge.icon}</span>
+        {/* ── "NYTT MERKE" pill ── */}
+        <div className={styles.pill} aria-hidden="true">NYTT MERKE</div>
+
+        {/* ── Heading ── */}
+        <h1 className={styles.heading}>Gratulerer!</h1>
+        <p className={styles.subtitle}>
+          {badges.length > 1
+            ? `Merke ${currentIndex + 1} av ${badges.length}`
+            : 'Du har tjent et nytt merke'}
+        </p>
+
+        {/* ── Badge card ── */}
+        <div
+          key={badge.id}
+          className={styles.badgeCard}
+          role="img"
+          aria-label={`Merke: ${badge.name}. ${badge.description}`}
+        >
+          <div className={styles.iconCircle} aria-hidden="true">
+            <span className={styles.badgeIcon}>{badge.icon}</span>
+          </div>
+          <p className={styles.badgeName}>{badge.name.toUpperCase()}</p>
+          <p className={styles.badgeDescription}>{badge.description}</p>
+          <div
+            className={styles.countPill}
+            aria-label={`Merke ${earnedCount} av ${TOTAL_BADGES}`}
+          >
+            <span aria-hidden="true">🏅</span>
+            <span>Merke {earnedCount} av {TOTAL_BADGES}</span>
+          </div>
         </div>
 
-        <p className={styles.badgeName}>{badge.name}</p>
-        <p className={styles.badgeDescription}>{badge.description}</p>
+        {/* ── Actions ── */}
+        {isLast ? (
+          <div className={styles.actions}>
+            <button
+              className={styles.btnFortsett}
+              type="button"
+              onClick={() => navigate('/kursoversikt')}
+              aria-label="Fortsett kurset fra kursoversikten"
+            >
+              Fortsett kurset
+            </button>
+            <button
+              className={styles.btnSeAlle}
+              type="button"
+              onClick={() => navigate('/fremgang')}
+              aria-label="Se alle merkene dine på fremgangssiden"
+            >
+              Se alle merkene mine
+            </button>
+          </div>
+        ) : (
+          <button
+            className={styles.btnFortsett}
+            type="button"
+            onClick={() => setCurrentIndex((i) => i + 1)}
+            aria-label={`Gå til neste merke, ${currentIndex + 2} av ${badges.length}`}
+          >
+            Neste merke →
+          </button>
+        )}
 
-        <div className={styles.actions}>
-          <button
-            className={styles.btnSecondary}
-            type="button"
-            onClick={() => navigate('/kursoversikt')}
-            aria-label="Se alle merkene mine på kursoversikten"
-          >
-            Se alle merkene mine
-          </button>
-          <button
-            className={styles.btnPrimary}
-            type="button"
-            onClick={() => navigate('/kursoversikt')}
-            aria-label="Fortsett kurset fra kursoversikten"
-          >
-            Fortsett kurset
-          </button>
-        </div>
       </main>
     </div>
   );

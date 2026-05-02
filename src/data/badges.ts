@@ -16,7 +16,7 @@ const KAPITTEL_BADGES: Record<number, Badge> = {
     icon: '🔭',
   },
   2: {
-    id: 'trygg-teknologi',
+    id: 'trygg-pa-teknologi',
     name: 'Trygg på teknologi',
     description: 'Fullførte Bygge selvtillit med KI',
     unlockHint: 'Fullfør kapittel 2',
@@ -95,4 +95,12 @@ export function getAllSpesialBadges(): Badge[] {
 export function getQuizBadge(chapterId: number, stars: number): Badge | null {
   if (stars === 0) return null;
   return KAPITTEL_BADGES[chapterId] ?? null;
+}
+
+const ALL_BADGES_BY_ID: Record<string, Badge> = Object.fromEntries(
+  [...Object.values(KAPITTEL_BADGES), ...SPESIAL_BADGES].map((b) => [b.id, b]),
+);
+
+export function getBadgeById(id: string): Badge | undefined {
+  return ALL_BADGES_BY_ID[id];
 }

@@ -1,21 +1,33 @@
-/* ===================================================
-   Page shell
-   =================================================== */
 .page {
   min-height: 100dvh;
-  background-color: var(--color-white);
-  padding: 2.5rem 1rem 3rem;
+  background-color: var(--color-bg-green);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 3rem;
 }
 
 /* ===================================================
-   Header row: heading + action buttons
+   Top bar — controls right-aligned
    =================================================== */
-.header {
+.topBar {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ===================================================
+   Heading row — title left, stats right
+   =================================================== */
+.headingRow {
+  display: flex;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 1.5rem;
-  margin-bottom: 1.25rem;
+  padding: 0 1.5rem 1.75rem;
+  flex-wrap: wrap;
 }
 
 .heading {
@@ -24,29 +36,18 @@
   font-weight: 800;
   color: var(--color-primary);
   line-height: 1.1;
+  flex-shrink: 0;
 }
 
-
-/* ===================================================
-   Meta row: progress summary + text size control
-   =================================================== */
-.metaRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-.progressSummary {
+.stats {
   margin: 0;
-  font-size: calc(0.875rem * var(--font-scale, 1));
+  font-size: calc(0.9375rem * var(--font-scale, 1));
   color: var(--color-text-muted);
   display: flex;
   align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
+  padding-bottom: 0.25rem;
 }
 
 .dot {
@@ -55,17 +56,16 @@
   color: var(--color-text-muted);
 }
 
-
 /* ===================================================
    Module grid
    =================================================== */
 .grid {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 1.5rem;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
 .gridCell {
@@ -80,10 +80,19 @@
    Responsive
    =================================================== */
 
-/* Tablet portrait */
+/* Tablet portrait — 2-column grid */
 @media (min-width: 600px) and (orientation: portrait) {
-  .page {
-    padding: 2.5rem 2rem 3rem;
+  .topBar {
+    padding: 1.5rem 2.5rem;
+  }
+
+  .headingRow {
+    padding: 0 2.5rem 2rem;
+  }
+
+  .grid {
+    padding: 0 2.5rem;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .heading {
@@ -93,16 +102,26 @@
 
 /* Tablet landscape — primary layout */
 @media (min-width: 1024px) and (orientation: landscape) {
-  .page {
-    padding: 3rem 5rem 4rem;
+  .topBar {
+    padding: 1.5rem 5rem;
+  }
+
+  .headingRow {
+    padding: 0 5rem 2.5rem;
+  }
+
+  .grid {
+    padding: 0 5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: 100%;
   }
 
   .heading {
     font-size: calc(3.5rem * var(--font-scale, 1));
   }
 
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 83rem;
+  .stats {
+    font-size: calc(1rem * var(--font-scale, 1));
   }
 }

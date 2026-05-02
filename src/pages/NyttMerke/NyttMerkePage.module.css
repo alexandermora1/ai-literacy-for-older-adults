@@ -1,20 +1,11 @@
 /* ===================================================
-   Page shell — green celebration background
+   Page shell — white background, full height
    =================================================== */
 .page {
   min-height: 100dvh;
-  background-color: var(--color-bg-green);
+  background-color: var(--color-white);
   display: flex;
   flex-direction: column;
-}
-
-/* ===================================================
-   Minimal top bar — PageHeaderActions only
-   =================================================== */
-.topBar {
-  display: flex;
-  justify-content: flex-end;
-  padding: 1rem 1rem 0;
 }
 
 /* ===================================================
@@ -27,46 +18,72 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2rem 1.5rem 3rem;
+  padding: 2.5rem 1.5rem 3rem;
   gap: 0;
 }
 
 /* ===================================================
-   Heading
+   "NYTT MERKE" pill — dark purple, uppercase
    =================================================== */
-.heading {
-  margin: 0 0 2rem;
-  font-size: calc(2.5rem * var(--font-scale, 1));
-  font-weight: 800;
-  color: var(--color-primary);
-  line-height: 1.1;
+.pill {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background-color: var(--color-purple);
+  color: var(--color-white);
+  font-family: var(--font-family);
+  font-size: calc(0.8125rem * var(--font-scale, 1));
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  margin-bottom: 1.25rem;
 }
 
 /* ===================================================
-   Badge icon — animated entrance
+   Heading and subtitle
    =================================================== */
-.badgeIconWrapper {
-  width: 10rem;
-  height: 10rem;
-  border-radius: 50%;
-  background: var(--color-white);
+.heading {
+  margin: 0 0 0.375rem;
+  font-size: calc(2rem * var(--font-scale, 1));
+  font-weight: 800;
+  color: var(--color-purple);
+  line-height: 1.15;
+}
+
+.subtitle {
+  margin: 0 0 1.75rem;
+  font-size: calc(1rem * var(--font-scale, 1));
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+/* ===================================================
+   Badge card
+   =================================================== */
+.badgeCard {
+  width: 100%;
+  max-width: 22rem;
+  background-color: var(--color-bg-purple);
+  border: 0.125rem solid var(--color-purple);
+  border-radius: 1.25rem;
+  padding: 2rem 1.5rem 1.75rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 0;
   margin-bottom: 1.75rem;
-  box-shadow: 0 0.5rem 2rem rgba(33, 90, 65, 0.18);
-  animation: badgePop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: cardIn 0.4s cubic-bezier(0.34, 1.4, 0.64, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .badgeIconWrapper {
+  .badgeCard {
     animation: none;
   }
 }
 
-@keyframes badgePop {
+@keyframes cardIn {
   from {
-    transform: scale(0.4);
+    transform: scale(0.88);
     opacity: 0;
   }
   to {
@@ -75,121 +92,167 @@
   }
 }
 
+/* ===================================================
+   Icon circle inside card
+   =================================================== */
+.iconCircle {
+  width: 11rem;
+  height: 11rem;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
 .badgeIcon {
   font-size: 5rem;
   line-height: 1;
 }
 
 /* ===================================================
-   Badge text
+   Badge name and description inside card
    =================================================== */
 .badgeName {
   margin: 0 0 0.5rem;
   font-size: calc(1.5rem * var(--font-scale, 1));
   font-weight: 800;
-  color: var(--color-primary);
+  color: var(--color-purple);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
 }
 
 .badgeDescription {
-  margin: 0 0 2.5rem;
+  margin: 0 0 1.25rem;
   font-size: calc(1rem * var(--font-scale, 1));
+  font-weight: 600;
   color: var(--color-text);
-  line-height: 1.5;
-  max-width: 22rem;
+  line-height: 1.45;
 }
 
 /* ===================================================
-   Action buttons
+   "🏅 Merke X av 10" count pill inside card
+   =================================================== */
+.countPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 1.25rem;
+  background-color: var(--color-white);
+  border: 0.125rem solid var(--color-purple);
+  border-radius: 9999px;
+  font-family: var(--font-family);
+  font-size: calc(0.9375rem * var(--font-scale, 1));
+  font-weight: 600;
+  color: var(--color-purple);
+}
+
+/* ===================================================
+   Action buttons container (last badge — two buttons)
    =================================================== */
 .actions {
+  width: 100%;
+  max-width: 22rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  width: 100%;
-  max-width: 28rem;
 }
 
-.btnPrimary {
+/* ===================================================
+   Primary action button — full-width green gradient
+   =================================================== */
+.btnFortsett {
   width: 100%;
+  max-width: 22rem;
   min-height: 4.1875rem;
   padding: 0 1.5rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.875rem;
   cursor: pointer;
   font-family: var(--font-family);
-  font-size: calc(1rem * var(--font-scale, 1));
-  font-weight: 600;
+  font-size: calc(1.125rem * var(--font-scale, 1));
+  font-weight: 700;
   color: var(--color-white);
   background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
 }
 
-.btnPrimary:hover {
+.btnFortsett:hover {
   background: var(--color-primary);
 }
 
-.btnPrimary:focus-visible {
-  outline: 0.1875rem solid var(--color-primary);
-  outline-offset: 0.125rem;
-}
-
-/* Outlined on green — uses white background so it stands out from the page */
-.btnSecondary {
-  width: 100%;
-  min-height: 4.1875rem;
-  padding: 0 1.5rem;
-  border: 0.125rem solid var(--color-primary);
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-family: var(--font-family);
-  font-size: calc(1rem * var(--font-scale, 1));
-  font-weight: 600;
-  color: var(--color-primary);
-  background: var(--color-white);
-}
-
-.btnSecondary:hover {
-  background: var(--color-bg-green);
-  border-color: var(--color-primary);
-}
-
-.btnSecondary:focus-visible {
+.btnFortsett:focus-visible {
   outline: 0.1875rem solid var(--color-primary);
   outline-offset: 0.125rem;
 }
 
 /* ===================================================
-   Responsive
+   Secondary action button — outlined purple
+   =================================================== */
+.btnSeAlle {
+  width: 100%;
+  min-height: 4.1875rem;
+  padding: 0 1.5rem;
+  border: 0.125rem solid var(--color-purple);
+  border-radius: 0.875rem;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: calc(1.125rem * var(--font-scale, 1));
+  font-weight: 700;
+  color: var(--color-purple);
+  background: transparent;
+}
+
+.btnSeAlle:hover {
+  background: var(--color-bg-purple);
+}
+
+.btnSeAlle:focus-visible {
+  outline: 0.1875rem solid var(--color-purple);
+  outline-offset: 0.125rem;
+}
+
+/* ===================================================
+   Responsive — tablet portrait
    =================================================== */
 @media (min-width: 600px) and (orientation: portrait) {
-  .topBar {
-    padding: 1.25rem 2rem 0;
+  .heading {
+    font-size: calc(2.5rem * var(--font-scale, 1));
   }
 
-  .heading {
-    font-size: calc(3rem * var(--font-scale, 1));
+  .badgeCard {
+    max-width: 26rem;
+  }
+
+  .actions,
+  .btnFortsett {
+    max-width: 26rem;
   }
 }
 
+/* ===================================================
+   Responsive — tablet landscape (primary layout)
+   =================================================== */
 @media (min-width: 1024px) and (orientation: landscape) {
-  .topBar {
-    padding: 1.5rem 5rem 0;
-  }
-
   .heading {
-    font-size: calc(3.5rem * var(--font-scale, 1));
+    font-size: calc(2.75rem * var(--font-scale, 1));
   }
 
-  .badgeIconWrapper {
-    width: 12rem;
-    height: 12rem;
+  .iconCircle {
+    width: 13rem;
+    height: 13rem;
   }
 
   .badgeIcon {
     font-size: 6rem;
   }
 
-  .actions {
-    flex-direction: row;
-    max-width: 36rem;
+  .badgeCard {
+    max-width: 28rem;
+  }
+
+  .actions,
+  .btnFortsett {
+    max-width: 28rem;
   }
 }

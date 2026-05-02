@@ -1,16 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useTextScale } from '../../hooks/useTextScale';
+import { useProgress } from '../../hooks/useProgress';
 import { getAllKapittelBadges, getAllSpesialBadges, type Badge } from '../../data/badges';
 import { CHAPTERS } from '../../data/chapters';
-import {
-  PLACEHOLDER_PROGRESS,
-  getTotalStars,
-  MAX_STARS,
-} from '../../data/progress';
+import { MAX_STARS } from '../../data/progress';
 import styles from './MinFremgangPage.module.css';
-
-const progress = PLACEHOLDER_PROGRESS;
-const earnedSet = new Set(progress.earnedBadgeIds);
 const kapittelBadges = getAllKapittelBadges();
 const spesialBadges = getAllSpesialBadges();
 const TOTAL_BADGES = kapittelBadges.length + spesialBadges.length;
@@ -81,9 +75,11 @@ function BadgeCard({ badge, earned }: BadgeCardProps) {
 export function MinFremgangPage() {
   const navigate = useNavigate();
   const { fontScale } = useTextScale();
+  const progress = useProgress();
 
-  const totalStars = getTotalStars(progress);
-  const earnedBadges = progress.earnedBadgeIds.length;
+  const totalStars = progress.totalStars;
+  const earnedBadges = progress.earnedBadges.length;
+  const earnedSet = new Set(progress.earnedBadges);
 
   return (
     <div
@@ -114,11 +110,12 @@ export function MinFremgangPage() {
 
             <ul className={styles.chapterList} role="list">
               {PROGRESS_CHAPTERS.map((chapter) => {
-                const cp = progress.chapterProgress.find((p) => p.chapterId === chapter.id);
-                const isComplete = cp?.isComplete ?? false;
-                const inProgress = !isComplete && (cp?.emnerCompleted ?? 0) > 0;
-                const emnerCompleted = cp?.emnerCompleted ?? 0;
-                const totalEmner = cp?.totalEmner ?? chapter.topics.length;
+                const status = progress.getKapittelStatus(chapter.id);
+                const isComplete = status === 'fullført';
+                const visitedCount = progress.getVisitedEmneCount(chapter.id);
+                const inProgress = !isComplete && visitedCount > 0;
+                const emnerCompleted = isComplete ? chapter.topics.length : visitedCount;
+                const totalEmner = chapter.topics.length;
                 let statusText: string;
                 let statusIcon: React.ReactNode;
                 if (isComplete) {

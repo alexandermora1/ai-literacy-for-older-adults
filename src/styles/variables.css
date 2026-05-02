@@ -22,6 +22,7 @@
 
   /* Feedback */
   --color-error: #C62828;
+  --color-bg-error: #FDECEA;
 
   /* Typography */
   --font-family: 'Inter', system-ui, sans-serif;

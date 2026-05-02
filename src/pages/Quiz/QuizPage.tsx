@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { PageHeaderActions } from '../../components/PageHeaderActions/PageHeaderActions';
-import { TextSizeControl } from '../../components/TextSizeControl/TextSizeControl';
 import { useTextScale } from '../../hooks/useTextScale';
+import { useProgress } from '../../hooks/useProgress';
 import { getChapterById } from '../../data/chapters';
 import { getQuiz, type QuizAnswerRecord } from '../../data/quizzes';
 import styles from './QuizPage.module.css';
@@ -23,7 +22,8 @@ export function QuizPage() {
     quizId: string;
   }>();
   const navigate = useNavigate();
-  const { fontScale, decrease, increase, atMin, atMax } = useTextScale();
+  const { fontScale } = useTextScale();
+  const progress = useProgress();
 
   const kapitelId = Number(kapitelIdStr);
   const quizId = Number(quizIdStr);
@@ -42,7 +42,7 @@ export function QuizPage() {
 
   const question = quiz.questions[currentIndex];
   const isLastQuestion = currentIndex === quiz.questions.length - 1;
-  const completedCount = hasChecked ? currentIndex + 1 : currentIndex;
+  const total = quiz.questions.length;
 
   const handleSelect = (id: number) => {
     if (!hasChecked) setSelectedId(id);
@@ -61,8 +61,11 @@ export function QuizPage() {
 
   const handleAdvance = () => {
     if (isLastQuestion) {
+      const score = correctCount;
+      const stars = score === 0 ? 0 : score >= total ? 3 : score >= 2 ? 2 : 1;
+      progress.saveQuizResult(kapitelId, quizId, score, total);
       navigate(`/kapittel/${kapitelId}/quiz/${quizId}/resultat`, {
-        state: { correct: correctCount, total: quiz.questions.length, kapitelId, quizId, answers },
+        state: { correct: score, total, stars, kapitelId, quizId, answers },
       });
     } else {
       setCurrentIndex((i) => i + 1);
@@ -109,61 +112,49 @@ export function QuizPage() {
       className={styles.page}
       style={{ '--font-scale': fontScale } as React.CSSProperties}
     >
-      {/* ── Header ── */}
+      {/* ── Minimal header — back button only ── */}
       <header className={styles.header}>
-        <div className={styles.headerTop}>
-          <button
-            className={styles.btnBack}
-            type="button"
-            onClick={() => navigate(`/kapittel/${kapitelId}`)}
-            aria-label="Tilbake til kapitteloversikt"
-          >
-            <BackArrow />
-            <span>Tilbake til kapitteloversikt</span>
-          </button>
-
-          <h1 className={styles.heading}>
-            Quiz – Kapittel {kapitelId}: {chapter.title}
-          </h1>
-
-          <PageHeaderActions />
-        </div>
-
-        <div className={styles.headerMeta}>
-          <TextSizeControl
-            onDecrease={decrease}
-            onIncrease={increase}
-            atMin={atMin}
-            atMax={atMax}
-          />
-        </div>
+        <button
+          className={styles.btnBack}
+          type="button"
+          onClick={() => navigate(`/kapittel/${kapitelId}`)}
+          aria-label="Tilbake til kapitteloversikt"
+        >
+          <BackArrow />
+          <span>Tilbake til kapitteloversikt</span>
+        </button>
       </header>
 
       {/* ── Main content ── */}
       <main className={styles.content}>
         <div className={styles.contentColumn}>
 
-          {/* Progress bar */}
-          <div className={styles.progressSection}>
-            <div
-              role="progressbar"
-              aria-valuenow={completedCount}
-              aria-valuemin={0}
-              aria-valuemax={quiz.questions.length}
-              aria-label={`Fremgang: ${completedCount} av ${quiz.questions.length} spørsmål besvart`}
-              className={styles.progressBar}
-            >
-              {quiz.questions.map((_, i) => (
-                <span
-                  key={i}
-                  className={`${styles.segment} ${i < completedCount ? styles.segmentFilled : ''}`}
-                  aria-hidden="true"
+          {/* Page title */}
+          <h1 className={styles.heading}>
+            Quiz - Kapittel {kapitelId}: {chapter.title}
+          </h1>
+
+          {/* Dot progress track */}
+          <div
+            className={styles.progressTrack}
+            role="progressbar"
+            aria-valuenow={currentIndex + 1}
+            aria-valuemin={1}
+            aria-valuemax={total}
+            aria-label={`Spørsmål ${currentIndex + 1} av ${total}`}
+          >
+            {quiz.questions.map((_, i) => (
+              <div key={i} className={styles.dotWrapper} aria-hidden="true">
+                <div
+                  className={`${styles.dot} ${i === currentIndex ? styles.dotActive : ''}`}
                 />
-              ))}
-            </div>
-            <span className={styles.progressCounter} aria-hidden="true">
-              {completedCount}/{quiz.questions.length}
-            </span>
+                {i === currentIndex && (
+                  <span className={styles.dotLabel}>
+                    {currentIndex + 1}/{total}
+                  </span>
+                )}
+              </div>
+            ))}
           </div>
 
           {/* Question */}
@@ -215,6 +206,7 @@ export function QuizPage() {
               Sjekk svar
             </button>
           )}
+
         </div>
       </main>
     </div>

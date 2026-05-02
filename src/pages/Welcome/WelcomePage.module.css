@@ -1,39 +1,19 @@
 /* ===================================================
-   Page shell
-   Mobile: single column, hero hidden.
-   Portrait: single column, hero on top.
-   Landscape: two-column grid (35 / 65).
+   Page shell — centered single column, all breakpoints
    =================================================== */
 .page {
   min-height: 100dvh;
-  background: var(--color-white);
+  background: radial-gradient(ellipse at 50% 40%, #f5fffc 0%, var(--color-bg-green) 70%);
   display: flex;
-  flex-direction: column;
-}
-
-/* ===================================================
-   Hero column
-   Hidden on mobile — content gets full focus.
-   =================================================== */
-.hero {
-  display: none;
-  background-color: var(--color-bg-green);
   align-items: center;
   justify-content: center;
-}
-
-.heroEmoji {
-  font-size: 8rem;
-  line-height: 1;
-  opacity: 0.55;
-  user-select: none;
 }
 
 /* ===================================================
    Content column
    =================================================== */
 .content {
-  flex: 1;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,7 +22,7 @@
 
 .contentInner {
   width: 100%;
-  max-width: 30rem;
+  max-width: 36rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,7 +31,18 @@
 }
 
 /* ===================================================
-   Heading — min 2rem per spec
+   Hero illustration
+   =================================================== */
+.heroImage {
+  width: 18rem;
+  height: 18rem;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ===================================================
+   Heading
    =================================================== */
 .heading {
   margin: 0;
@@ -72,21 +63,21 @@
 }
 
 /* ===================================================
-   CTA button — full-width, min 67px tall
+   CTA button
    =================================================== */
 .btnKomIgang {
   width: 100%;
-  min-height: 4.1875rem; /* 67px */
+  min-height: 4.1875rem;
   padding: 0 1.5rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.875rem;
   cursor: pointer;
   font-family: var(--font-family);
   font-size: calc(1.125rem * var(--font-scale, 1));
   font-weight: 700;
   color: var(--color-white);
   background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
 }
 
 .btnKomIgang:hover {
@@ -99,27 +90,27 @@
 }
 
 /* ===================================================
-   Trust line — min 0.875rem per spec
+   Trust line
    =================================================== */
 .trustLine {
   margin: 0;
-  font-size: calc(0.875rem * var(--font-scale, 1));
+  font-size: calc(0.9375rem * var(--font-scale, 1));
   color: var(--color-text-muted);
   line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* ===================================================
-   Tablet portrait — image on top, content below
+   Tablet portrait
    =================================================== */
 @media (min-width: 600px) and (orientation: portrait) {
-  .hero {
-    display: flex;
-    height: 38vh;
-    min-height: 14rem;
-  }
-
-  .heroEmoji {
-    font-size: 10rem;
+  .heroImage {
+    width: 20rem;
+    height: 20rem;
   }
 
   .heading {
@@ -127,52 +118,24 @@
   }
 
   .contentInner {
-    max-width: 36rem;
+    max-width: 40rem;
   }
 }
 
 /* ===================================================
-   Tablet landscape — two-column split (35 / 65)
-   Content left, hero right, flush to edge.
+   Tablet landscape (primary layout)
    =================================================== */
 @media (min-width: 1024px) and (orientation: landscape) {
-  .page {
-    flex-direction: row;
-  }
-
-  /* Content: left 35%, vertically centered */
-  .content {
-    order: 1;
-    flex: 0 0 35%;
-    padding: 4rem 3rem;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .contentInner {
-    max-width: 24rem;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .btnKomIgang {
-    width: 100%;
+  .heroImage {
+    width: 22rem;
+    height: 22rem;
   }
 
   .heading {
     font-size: calc(2.75rem * var(--font-scale, 1));
   }
 
-  /* Hero: right 65%, flush to right edge, full viewport height */
-  .hero {
-    display: flex;
-    order: 2;
-    flex: 0 0 65%;
-    min-height: 100dvh;
-  }
-
-  .heroEmoji {
-    font-size: 14rem;
-    opacity: 0.45;
+  .contentInner {
+    max-width: 44rem;
   }
 }

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import heroImage from '../../assets/hero.png';
 import styles from './WelcomePage.module.css';
 
 export function WelcomePage() {
@@ -6,21 +7,21 @@ export function WelcomePage() {
 
   return (
     <div className={styles.page}>
-      {/* ── Right column: hero image (rendered first in DOM → top on portrait) ── */}
-      <div className={styles.hero} aria-hidden="true">
-        <span className={styles.heroEmoji}>🤖</span>
-      </div>
-
-      {/* ── Left column: content stack ── */}
       <main className={styles.content}>
         <div className={styles.contentInner}>
+          <img
+            src={heroImage}
+            alt="Eldre mann som snakker med en vennlig robot"
+            className={styles.heroImage}
+          />
+
           <h1 className={styles.heading}>
-            Bli kjent med KI i hverdagen
+            Bli tryggere på KI i hverdagen
           </h1>
 
           <p className={styles.subtitle}>
-            Et gratis kurs som hjelper deg å forstå kunstig intelligens —
-            på dine premisser, i ditt eget tempo.
+            Lær hva kunstig intelligens (KI) er, hvor du møter det, og hvordan
+            du kan bruke det på en smart og sikker måte.
           </p>
 
           <button
@@ -33,7 +34,11 @@ export function WelcomePage() {
           </button>
 
           <p className={styles.trustLine}>
-            Ingen innlogging · Ingen konto · Helt gratis
+            <span>Ingen konto</span>
+            <span aria-hidden="true"> · </span>
+            <span>Ingen innlogging</span>
+            <span aria-hidden="true"> · </span>
+            <span>Helt gratis</span>
           </p>
         </div>
       </main>
