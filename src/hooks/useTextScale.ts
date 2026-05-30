@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const FONT_SCALES = [0.875, 1, 1.125, 1.25] as const;
+const FONT_SCALES = [0.875, 1, 1.125, 1.25, 1.375, 1.5] as const;
 const DEFAULT_SCALE_INDEX = 1;
 const STORAGE_KEY = 'ki-font-scale-index';
 
