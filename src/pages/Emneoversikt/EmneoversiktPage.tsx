@@ -105,7 +105,7 @@ export function EmneoversiktPage() {
           {hasActivities && (
             <section className={styles.column} aria-labelledby="aktiviteter-heading">
               <h2 id="aktiviteter-heading" className={`${styles.columnLabel} ${styles.aktivitetLabel}`}>
-                Ta quiz og aktiviteter når du har lest om alle emnene
+                Ta quiz og aktiviteter når du har lest alle emnene
               </h2>
               <ul className={styles.cardList} role="list">
                 {chapter.activities.map((activity) => (

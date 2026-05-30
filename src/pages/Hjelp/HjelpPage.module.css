@@ -9,20 +9,35 @@
    Header
    =================================================== */
 .header {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 0.0625rem solid var(--color-border);
-  background: var(--color-white);
   position: sticky;
   top: 0;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 0.0625rem solid var(--color-border);
+  background: var(--color-white);
+}
+
+/* TextSizeControl wrapper — full width, above heading on mobile */
+.textSizeRow {
+  order: -1;
+  width: 100%;
+}
+
+/* Back button and heading sit below TextSizeControl on mobile */
+.btnBack {
+  order: 0;
+}
+
+.heading {
+  order: 1;
 }
 
 .btnBack {
+  order: 0;
   display: flex;
   align-items: center;
   gap: 0.625rem;
@@ -49,6 +64,7 @@
 }
 
 .heading {
+  order: 1;
   margin: 0;
   font-size: calc(1.5rem * var(--font-scale, 1));
   font-weight: 800;
@@ -126,6 +142,21 @@
   flex-shrink: 0;
 }
 
+/* Mirrors the back button width to keep the heading truly centred */
+.headingBalancer {
+  order: 2;
+  width: 6rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .headingBalancer { display: none; }
+}
+
+@media (min-width: 1024px) and (orientation: landscape) {
+  .headingBalancer { display: none; }
+}
+
 /* ===================================================
    Bottom action button
    =================================================== */
@@ -195,6 +226,21 @@
    Tablet portrait
    =================================================== */
 @media (min-width: 600px) and (orientation: portrait) {
+  .header {
+    flex-wrap: nowrap;
+    padding: 1.25rem 1.5rem;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .textSizeRow {
+    order: unset;
+    width: auto;
+  }
+
+  .btnBack { order: unset; }
+  .heading { order: unset; text-align: center; }
+
   .content {
     padding: 2.5rem 2rem 1rem;
   }
@@ -209,8 +255,19 @@
    =================================================== */
 @media (min-width: 1024px) and (orientation: landscape) {
   .header {
+    flex-wrap: nowrap;
     padding: 1.5rem 3rem;
+    gap: 1rem;
+    justify-content: space-between;
   }
+
+  .textSizeRow {
+    order: unset;
+    width: auto;
+  }
+
+  .btnBack { order: unset; }
+  .heading { order: unset; text-align: center; }
 
   .content {
     padding: 3rem 3rem 1rem;

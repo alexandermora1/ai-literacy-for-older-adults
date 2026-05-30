@@ -41,13 +41,16 @@ export function HjelpPage() {
         )}
 
         <h1 className={styles.heading}>Hjelp</h1>
+        <div className={styles.headingBalancer} aria-hidden="true" />
 
-        <TextSizeControl
-          onDecrease={decrease}
-          onIncrease={increase}
-          atMin={atMin}
-          atMax={atMax}
-        />
+        <div className={styles.textSizeRow}>
+          <TextSizeControl
+            onDecrease={decrease}
+            onIncrease={increase}
+            atMin={atMin}
+            atMax={atMax}
+          />
+        </div>
         <ScrollProgressBar />
       </header>
 

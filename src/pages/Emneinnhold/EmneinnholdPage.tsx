@@ -125,17 +125,28 @@ export function EmneinnholdPage() {
 
   useEffect(() => {
     setHasReachedBottom(false);
+    let marked = false;
+
     const checkBottom = () => {
       const scrolled = window.scrollY + window.innerHeight;
       const total = document.documentElement.scrollHeight;
-      if (scrolled >= total - 50) setHasReachedBottom(true);
+      if (scrolled >= total - 50) {
+        setHasReachedBottom(true);
+        if (!marked) {
+          marked = true;
+          markEmneVisited(kapitelId, emneId);
+        }
+      }
     };
+
     const timeout = setTimeout(checkBottom, 100);
     window.addEventListener('scroll', checkBottom, { passive: true });
     return () => {
       clearTimeout(timeout);
       window.removeEventListener('scroll', checkBottom);
     };
+  // markEmneVisited intentionally excluded — stable enough for a one-shot call per emne
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kapitelId, emneId]);
   const chapter = getChapterById(kapitelId);
   const topics = chapter?.topics ?? [];
@@ -246,10 +257,7 @@ export function EmneinnholdPage() {
             className={styles.btnNext}
             type="button"
             disabled={!hasReachedBottom}
-            onClick={() => {
-              markEmneVisited(kapitelId, emneId);
-              navigate(`/kapittel/${kapitelId}`);
-            }}
+            onClick={() => navigate(`/kapittel/${kapitelId}`)}
             aria-label="Fullfør emnet og gå tilbake til emneoversikt"
           >
             Tilbake til emneoversikt
@@ -259,10 +267,7 @@ export function EmneinnholdPage() {
             className={styles.btnNext}
             type="button"
             disabled={!hasReachedBottom}
-            onClick={() => {
-              markEmneVisited(kapitelId, emneId);
-              navigate(`/kapittel/${kapitelId}/emne/${nextId}`);
-            }}
+            onClick={() => navigate(`/kapittel/${kapitelId}/emne/${nextId}`)}
             aria-label="Fullfør emnet og gå til neste emne"
           >
             Neste emne

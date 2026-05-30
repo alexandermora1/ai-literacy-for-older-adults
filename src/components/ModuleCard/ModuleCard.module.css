@@ -33,7 +33,7 @@
 }
 
 .completed .chapterLabel {
-  color: rgba(255, 255, 255, 0.70);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .completed .title {
@@ -41,7 +41,7 @@
 }
 
 .completed .completionText {
-  color: rgba(255, 255, 255, 0.70);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .completed .chevron {
@@ -101,7 +101,7 @@
 }
 
 .chapterLabel {
-  font-size: calc(0.75rem * var(--font-scale, 1));
+  font-size: calc(0.875rem * var(--font-scale, 1));
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -114,7 +114,7 @@
 }
 
 .completionText {
-  font-size: calc(0.9375rem * var(--font-scale, 1));
+  font-size: calc(1rem * var(--font-scale, 1));
 }
 
 .stars {
