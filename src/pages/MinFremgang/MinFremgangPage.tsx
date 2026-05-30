@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { ScrollProgressBar } from '../../components/ScrollProgressBar/ScrollProgressBar';
 import { useTextScale } from '../../hooks/useTextScale';
 import { useProgress } from '../../hooks/useProgress';
 import { getAllKapittelBadges, getAllSpesialBadges, type Badge } from '../../data/badges';
@@ -74,6 +75,8 @@ function BadgeCard({ badge, earned }: BadgeCardProps) {
 
 export function MinFremgangPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const fromLabel = (location.state as { fromLabel?: string } | null)?.fromLabel;
   const { fontScale } = useTextScale();
   const progress = useProgress();
 
@@ -91,12 +94,13 @@ export function MinFremgangPage() {
         <button
           className={styles.btnBack}
           type="button"
-          onClick={() => navigate('/kursoversikt')}
-          aria-label="Tilbake til kursoversikt"
+          onClick={() => fromLabel ? navigate(-1) : navigate('/kursoversikt')}
+          aria-label={fromLabel ? `Tilbake til ${fromLabel}` : 'Tilbake til kursoversikt'}
         >
           <BackArrow />
-          <span>Tilbake til kursoversikt</span>
+          <span>{fromLabel ? `Tilbake til ${fromLabel}` : 'Tilbake til kursoversikt'}</span>
         </button>
+        <ScrollProgressBar />
       </header>
 
       <main className={styles.content}>

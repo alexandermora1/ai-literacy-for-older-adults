@@ -9,6 +9,9 @@
    Header
    =================================================== */
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   padding: 1.25rem 1.5rem 0.75rem;

@@ -9,6 +9,7 @@
    Header
    =================================================== */
 .header {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -163,7 +164,6 @@
 
 /* TODO: remove before release */
 .btnNullstill {
-  display: none;
   position: fixed;
   bottom: 5.5rem;
   left: 50%;

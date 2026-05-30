@@ -83,13 +83,13 @@ export function EmneoversiktPage() {
           {hasTopics && (
             <section className={styles.column} aria-labelledby="emner-heading">
               <h2 id="emner-heading" className={`${styles.columnLabel} ${styles.emneLabel}`}>
-                Emner fullført: {completedTopics} av {chapter.topics.length}
+                Start på første emne og les de i rekkefølge
               </h2>
               <ul className={styles.cardList} role="list">
-                {chapter.topics.map((topic) => (
+                {chapter.topics.map((topic, i) => (
                   <li key={topic.id}>
                     <TopicCard
-                      title={topic.title}
+                      title={`${i + 1}. ${topic.title}`}
                       description={topic.description}
                       variant="emne"
                       isCompleted={isEmneVisited(chapterId, topic.id)}
@@ -105,7 +105,7 @@ export function EmneoversiktPage() {
           {hasActivities && (
             <section className={styles.column} aria-labelledby="aktiviteter-heading">
               <h2 id="aktiviteter-heading" className={`${styles.columnLabel} ${styles.aktivitetLabel}`}>
-                Aktiviteter fullført: {completedActivities} av {chapter.activities.length}
+                Ta quiz og aktiviteter når du har lest om alle emnene
               </h2>
               <ul className={styles.cardList} role="list">
                 {chapter.activities.map((activity) => (

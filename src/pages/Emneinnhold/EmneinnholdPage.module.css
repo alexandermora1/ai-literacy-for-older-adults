@@ -212,8 +212,14 @@
   min-width: 10rem;
 }
 
-.btnNext:hover {
+.btnNext:hover:not(:disabled) {
   background: var(--color-primary);
+}
+
+.btnNext:disabled {
+  background: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
 }
 
 .btnNext:focus-visible {

@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { ScrollProgressBar } from '../../components/ScrollProgressBar/ScrollProgressBar';
 import { PageHeaderActions } from '../../components/PageHeaderActions/PageHeaderActions';
 import { TextSizeControl } from '../../components/TextSizeControl/TextSizeControl';
 import { useTextScale } from '../../hooks/useTextScale';
@@ -118,6 +120,23 @@ export function EmneinnholdPage() {
 
   const kapitelId = Number(kapitelIdStr);
   const emneId = Number(emneIdStr);
+
+  const [hasReachedBottom, setHasReachedBottom] = useState(false);
+
+  useEffect(() => {
+    setHasReachedBottom(false);
+    const checkBottom = () => {
+      const scrolled = window.scrollY + window.innerHeight;
+      const total = document.documentElement.scrollHeight;
+      if (scrolled >= total - 50) setHasReachedBottom(true);
+    };
+    const timeout = setTimeout(checkBottom, 100);
+    window.addEventListener('scroll', checkBottom, { passive: true });
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener('scroll', checkBottom);
+    };
+  }, [kapitelId, emneId]);
   const chapter = getChapterById(kapitelId);
   const topics = chapter?.topics ?? [];
   const topicIndex = topics.findIndex((t) => t.id === emneId);
@@ -157,6 +176,7 @@ export function EmneinnholdPage() {
         />
 
         <PageHeaderActions />
+        <ScrollProgressBar />
       </header>
 
       {/* ── Scrollable body ── */}
@@ -225,6 +245,7 @@ export function EmneinnholdPage() {
           <button
             className={styles.btnNext}
             type="button"
+            disabled={!hasReachedBottom}
             onClick={() => {
               markEmneVisited(kapitelId, emneId);
               navigate(`/kapittel/${kapitelId}`);
@@ -237,6 +258,7 @@ export function EmneinnholdPage() {
           <button
             className={styles.btnNext}
             type="button"
+            disabled={!hasReachedBottom}
             onClick={() => {
               markEmneVisited(kapitelId, emneId);
               navigate(`/kapittel/${kapitelId}/emne/${nextId}`);

@@ -10,6 +10,7 @@
    Header
    =================================================== */
 .header {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 1.25rem 1rem;

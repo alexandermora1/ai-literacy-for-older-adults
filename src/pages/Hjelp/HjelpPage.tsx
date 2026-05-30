@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
+import { ScrollProgressBar } from '../../components/ScrollProgressBar/ScrollProgressBar';
 import { useTextScale } from '../../hooks/useTextScale';
 import { useProgress } from '../../hooks/useProgress';
 import { TextSizeControl } from '../../components/TextSizeControl/TextSizeControl';
@@ -47,6 +48,7 @@ export function HjelpPage() {
           atMin={atMin}
           atMax={atMax}
         />
+        <ScrollProgressBar />
       </header>
 
       <main className={styles.content}>

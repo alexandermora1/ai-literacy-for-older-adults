@@ -1,4 +1,5 @@
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { ScrollProgressBar } from '../../components/ScrollProgressBar/ScrollProgressBar';
 import { useTextScale } from '../../hooks/useTextScale';
 import { useProgress } from '../../hooks/useProgress';
 import { getChapterById } from '../../data/chapters';
@@ -70,6 +71,7 @@ export function QuizResultatPage() {
           <BackArrow />
           <span>Tilbake til kapitteloversikt</span>
         </button>
+        <ScrollProgressBar />
       </header>
 
       <main className={styles.content}>
