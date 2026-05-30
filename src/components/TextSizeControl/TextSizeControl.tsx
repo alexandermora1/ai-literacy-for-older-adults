@@ -11,7 +11,7 @@ export function TextSizeControl({ onDecrease, onIncrease, atMin, atMax }: TextSi
   return (
     <div className={styles.control} role="group" aria-label="Juster tekststørrelse">
       <button
-        className={styles.btn}
+        className={`${styles.btn} ${styles.btnDecrease}`}
         type="button"
         onClick={onDecrease}
         disabled={atMin}
@@ -20,7 +20,7 @@ export function TextSizeControl({ onDecrease, onIncrease, atMin, atMax }: TextSi
         −
       </button>
       <button
-        className={styles.btn}
+        className={`${styles.btn} ${styles.btnIncrease}`}
         type="button"
         onClick={onIncrease}
         disabled={atMax}

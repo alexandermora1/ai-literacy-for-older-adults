@@ -27,7 +27,7 @@ export function WelcomePage() {
           <button
             className={styles.btnKomIgang}
             type="button"
-            onClick={() => navigate('/kursoversikt')}
+            onClick={() => navigate('/hjelp', { state: { fromWelcome: true } })}
             aria-label="Kom i gang med kurset"
           >
             Kom i gang

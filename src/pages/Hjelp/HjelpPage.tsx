@@ -1,5 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTextScale } from '../../hooks/useTextScale';
+import { useProgress } from '../../hooks/useProgress';
 import { TextSizeControl } from '../../components/TextSizeControl/TextSizeControl';
 import styles from './HjelpPage.module.css';
 
@@ -13,7 +14,10 @@ function BackArrow() {
 
 export function HjelpPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const fromWelcome = (location.state as { fromWelcome?: boolean } | null)?.fromWelcome === true;
   const { fontScale, decrease, increase, atMin, atMax } = useTextScale();
+  const { resetProgress } = useProgress(); // TODO: remove before release
 
   return (
     <div
@@ -21,15 +25,19 @@ export function HjelpPage() {
       style={{ '--font-scale': fontScale } as React.CSSProperties}
     >
       <header className={styles.header}>
-        <button
-          className={styles.btnBack}
-          type="button"
-          onClick={() => navigate(-1)}
-          aria-label="Gå tilbake til forrige side"
-        >
-          <BackArrow />
-          <span>Tilbake</span>
-        </button>
+        {!fromWelcome ? (
+          <button
+            className={styles.btnBack}
+            type="button"
+            onClick={() => navigate(-1)}
+            aria-label="Gå tilbake til forrige side"
+          >
+            <BackArrow />
+            <span>Tilbake</span>
+          </button>
+        ) : (
+          <div className={styles.btnBackPlaceholder} aria-hidden="true" />
+        )}
 
         <h1 className={styles.heading}>Hjelp</h1>
 
@@ -44,28 +52,37 @@ export function HjelpPage() {
       <main className={styles.content}>
         <div className={styles.contentColumn}>
 
-          <section className={styles.section} aria-labelledby="section-bruk">
-            <h2 id="section-bruk" className={styles.sectionHeading}>
-              Slik bruker du kurset
+          <section className={styles.section} aria-labelledby="section-kapitler">
+            <h2 id="section-kapitler" className={styles.sectionHeading}>
+              Kurset er delt inn i 5 kapitler
             </h2>
             <p className={styles.bodyText}>
-              Kurset er delt opp i kapitler. Hvert kapittel inneholder flere korte emner som du kan lese i ditt eget tempo.
+              Hvert kapittel handler om et tema, for eksempel «Hva er KI?» eller «KI i smarthjem». Du kan ta kapitlene i den rekkefølgen du vil, men å ta dem i rekkefølge anbefales.
             </p>
+          </section>
+
+          <section className={styles.section} aria-labelledby="section-emner">
+            <h2 id="section-emner" className={styles.sectionHeading}>
+              Hvert kapittel har emner og aktiviteter
+            </h2>
             <p className={styles.bodyText}>
-              Når du har lest gjennom et kapittel, kan du ta en quiz for å sjekke hva du har lært. Du får stjerner og merker basert på hvor godt du gjør det.
+              Emner er korte tekster du leser. Aktiviteter er quiz og øvelser hvor du tester det du har lært.
             </p>
+          </section>
+
+          <section className={styles.section} aria-labelledby="section-stjerner">
+            <h2 id="section-stjerner" className={styles.sectionHeading}>
+              Tjen stjerner og merker
+            </h2>
             <p className={styles.bodyText}>
-              Du kan gå frem og tilbake mellom emnene med pilknappene nederst på siden, og alltid gå tilbake til oversikten via menyen øverst.
+              Du får stjerner for riktige svar i quizene, og merker når du fullfører kapitler. Du kan se hvor langt du har kommet når som helst ved å trykke på «Se fremgang»-knappen.
             </p>
           </section>
 
           <section className={styles.section} aria-labelledby="section-tekst">
             <h2 id="section-tekst" className={styles.sectionHeading}>
-              Tekststørrelse
+              Du kan justere tekststørrelsen
             </h2>
-            <p className={styles.bodyText}>
-              Du kan gjøre teksten større eller mindre ved å bruke knappene øverst til høyre på de fleste sider. Valget ditt lagres automatisk.
-            </p>
             <div className={styles.textSizeDemo} aria-label="Eksempel på justering av tekststørrelse">
               <TextSizeControl
                 onDecrease={decrease}
@@ -73,25 +90,43 @@ export function HjelpPage() {
                 atMin={atMin}
                 atMax={atMax}
               />
-              <p className={styles.demoLabel}>A– gjør teksten mindre · A+ gjør teksten større</p>
+              <p className={styles.demoLabel}>Trykk på minustegnet for å gjøre teksten mindre eller plusstegnet for å gjøre teksten større</p>
             </div>
           </section>
 
           <section className={styles.section} aria-labelledby="section-hjelp">
             <h2 id="section-hjelp" className={styles.sectionHeading}>
-              Trenger du mer hjelp?
+              Denne skjermen er alltid tilgjengelig
             </h2>
             <p className={styles.bodyText}>
-              Dette kurset er laget i samarbeid med Seniornett Norge. Seniornett har frivillige over hele landet som kan hjelpe deg med digitale spørsmål.
-            </p>
-            <p className={styles.bodyText}>
-              Du finner din nærmeste Seniornett-avdeling på{' '}
-              <strong>seniornett.no</strong>
+              Trykk på «Hjelp»-knappen øverst til høyre (nederst på mobil) når du vil se denne forklaringen igjen.
             </p>
           </section>
 
         </div>
       </main>
+
+      <div className={styles.bottomAction}>
+        <button
+          className={styles.btnStart}
+          type="button"
+          onClick={() => navigate('/kursoversikt')}
+          aria-label={fromWelcome ? 'Start kurset' : 'Fortsett kurset'}
+        >
+          {fromWelcome ? 'Trykk her for å starte kurset' : 'Fortsett kurset'}
+        </button>
+      </div>
+
+      {/* TODO: remove before release */}
+      <button
+        className={styles.btnNullstill}
+        type="button"
+        onClick={() => { resetProgress(); navigate('/kursoversikt'); }}
+        aria-label="Nullstill all fremgang og gå til kursoversikt"
+      >
+        Nullstill fremgang
+      </button>
+
     </div>
   );
 }

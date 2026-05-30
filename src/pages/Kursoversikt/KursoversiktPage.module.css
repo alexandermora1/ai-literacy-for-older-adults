@@ -16,6 +16,10 @@
   gap: 1rem;
   padding: 1.25rem 1.5rem;
   flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-bg-green);
 }
 
 /* ===================================================
@@ -66,14 +70,16 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
+  align-items: stretch;
 }
 
 .gridCell {
   display: flex;
+  flex-direction: column;
 }
 
 .gridCell > * {
-  flex: 1;
+  flex: 1 1 auto;
 }
 
 /* ===================================================
@@ -93,6 +99,10 @@
   .grid {
     padding: 0 2.5rem;
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gridCell > * {
+    min-height: 9rem;
   }
 
   .heading {
@@ -115,6 +125,10 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem;
     max-width: 100%;
+  }
+
+  .gridCell > * {
+    min-height: 9rem;
   }
 
   .heading {

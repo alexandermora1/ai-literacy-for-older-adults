@@ -6,6 +6,7 @@ interface TopicCardProps {
   title: string;
   description: string;
   variant: TopicCardVariant;
+  isCompleted?: boolean;
   onClick?: () => void;
 }
 
@@ -31,12 +32,13 @@ function ChevronRight({ variant }: { variant: TopicCardVariant }) {
   );
 }
 
-export function TopicCard({ title, description, variant, onClick }: TopicCardProps) {
+export function TopicCard({ title, description, variant, isCompleted = false, onClick }: TopicCardProps) {
+  const completedLabel = isCompleted ? ' (fullført)' : '';
   return (
     <button
-      className={`${styles.card} ${variant === 'emne' ? styles.emne : styles.aktivitet}`}
+      className={`${styles.card} ${variant === 'emne' ? styles.emne : styles.aktivitet} ${isCompleted ? styles.completed : ''}`}
       onClick={onClick}
-      aria-label={`${title}: ${description}`}
+      aria-label={`${title}: ${description}${completedLabel}`}
       type="button"
     >
       <div className={styles.body}>

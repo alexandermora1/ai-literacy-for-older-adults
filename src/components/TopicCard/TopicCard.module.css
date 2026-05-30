@@ -38,6 +38,34 @@
 }
 
 /* ===================================================
+   Completed state — green fill, white text
+   =================================================== */
+.emne.completed {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.aktivitet.completed {
+  background-color: var(--color-purple);
+  border-color: var(--color-purple);
+}
+
+.emne.completed .title,
+.aktivitet.completed .title {
+  color: var(--color-white);
+}
+
+.emne.completed .description,
+.aktivitet.completed .description {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.emne.completed .chevronEmne,
+.aktivitet.completed .chevronAktivitet {
+  color: var(--color-white);
+}
+
+/* ===================================================
    Aktivitet variant — purple background, purple border
    =================================================== */
 .aktivitet {

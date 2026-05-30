@@ -3,6 +3,7 @@ import { TopicCard } from '../../components/TopicCard/TopicCard';
 import { PageHeaderActions } from '../../components/PageHeaderActions/PageHeaderActions';
 import { TextSizeControl } from '../../components/TextSizeControl/TextSizeControl';
 import { useTextScale } from '../../hooks/useTextScale';
+import { useProgress } from '../../hooks/useProgress';
 import { getChapterById } from '../../data/chapters';
 import styles from './EmneoversiktPage.module.css';
 
@@ -25,13 +26,16 @@ export function EmneoversiktPage() {
 
   const chapterId = Number(id);
   const chapter = getChapterById(chapterId);
+  const { getVisitedEmneCount, isEmneVisited, getQuizResult } = useProgress();
 
   if (!chapter) {
     return <Navigate to="/kursoversikt" replace />;
   }
 
-  const completedTopics = 0;
-  const completedActivities = 0;
+  const completedTopics = getVisitedEmneCount(chapterId);
+  const completedActivities = chapter.activities.filter(
+    (a) => a.type === 'quiz' && getQuizResult(chapterId, a.id)?.completed === true,
+  ).length;
   const hasTopics = chapter.topics.length > 0;
   const hasActivities = chapter.activities.length > 0;
 
@@ -88,6 +92,7 @@ export function EmneoversiktPage() {
                       title={topic.title}
                       description={topic.description}
                       variant="emne"
+                      isCompleted={isEmneVisited(chapterId, topic.id)}
                       onClick={() => navigate(`/kapittel/${chapterId}/emne/${topic.id}`)}
                     />
                   </li>
@@ -109,6 +114,10 @@ export function EmneoversiktPage() {
                       title={activity.title}
                       description={activity.description}
                       variant="aktivitet"
+                      isCompleted={
+                        activity.type === 'quiz' &&
+                        getQuizResult(chapterId, activity.id)?.completed === true
+                      }
                       onClick={
                         activity.type === 'quiz'
                           ? () => navigate(`/kapittel/${chapterId}/quiz/${activity.id}`)

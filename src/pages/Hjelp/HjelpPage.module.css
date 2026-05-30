@@ -61,7 +61,7 @@
    =================================================== */
 .content {
   flex: 1;
-  padding: 2rem 1.5rem 4rem;
+  padding: 2rem 1.5rem 1rem;
   display: flex;
   justify-content: center;
 }
@@ -119,12 +119,84 @@
   line-height: 1.5;
 }
 
+/* Placeholder to keep the heading centred when the back button is hidden */
+.btnBackPlaceholder {
+  width: 6rem;
+  flex-shrink: 0;
+}
+
+/* ===================================================
+   Bottom action button
+   =================================================== */
+.bottomAction {
+  padding: 1.25rem 1.5rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.btnStart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.875rem 2rem;
+  border: none;
+  border-radius: 0.625rem;
+  background: linear-gradient(to bottom, var(--color-primary-light), var(--color-primary));
+  color: var(--color-white);
+  font-family: var(--font-family);
+  font-size: calc(1.125rem * var(--font-scale, 1));
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  max-width: 40rem;
+}
+
+.btnStart:hover {
+  opacity: 0.9;
+}
+
+.btnStart:focus-visible {
+  outline: 0.1875rem solid var(--color-primary);
+  outline-offset: 0.125rem;
+}
+
+/* TODO: remove before release */
+.btnNullstill {
+  display: none;
+  position: fixed;
+  bottom: 5.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.75rem 1.5rem;
+  min-height: 2.75rem;
+  border: 0.125rem dashed var(--color-text-muted);
+  border-radius: 0.5rem;
+  background: var(--color-white);
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: calc(0.9375rem * var(--font-scale, 1));
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.btnNullstill:hover {
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+.btnNullstill:focus-visible {
+  outline: 0.1875rem solid var(--color-text-muted);
+  outline-offset: 0.125rem;
+}
+
 /* ===================================================
    Tablet portrait
    =================================================== */
 @media (min-width: 600px) and (orientation: portrait) {
   .content {
-    padding: 2.5rem 2rem 4rem;
+    padding: 2.5rem 2rem 1rem;
   }
 
   .sectionHeading {
@@ -141,12 +213,16 @@
   }
 
   .content {
-    padding: 3rem 3rem 5rem;
+    padding: 3rem 3rem 1rem;
   }
 
   .contentColumn {
     max-width: 52rem;
     gap: 3rem;
+  }
+
+  .btnStart {
+    max-width: 52rem;
   }
 
   .sectionHeading {

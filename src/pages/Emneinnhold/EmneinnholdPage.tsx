@@ -2,6 +2,7 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PageHeaderActions } from '../../components/PageHeaderActions/PageHeaderActions';
 import { TextSizeControl } from '../../components/TextSizeControl/TextSizeControl';
 import { useTextScale } from '../../hooks/useTextScale';
+import { useProgress } from '../../hooks/useProgress';
 import { getChapterById } from '../../data/chapters';
 import styles from './EmneinnholdPage.module.css';
 
@@ -113,6 +114,7 @@ export function EmneinnholdPage() {
   }>();
   const navigate = useNavigate();
   const { fontScale, decrease, increase, atMin, atMax } = useTextScale();
+  const { markEmneVisited } = useProgress();
 
   const kapitelId = Number(kapitelIdStr);
   const emneId = Number(emneIdStr);
@@ -223,8 +225,11 @@ export function EmneinnholdPage() {
           <button
             className={styles.btnNext}
             type="button"
-            onClick={() => navigate(`/kapittel/${kapitelId}`)}
-            aria-label="Tilbake til emneoversikt"
+            onClick={() => {
+              markEmneVisited(kapitelId, emneId);
+              navigate(`/kapittel/${kapitelId}`);
+            }}
+            aria-label="Fullfør emnet og gå tilbake til emneoversikt"
           >
             Tilbake til emneoversikt
           </button>
@@ -232,8 +237,11 @@ export function EmneinnholdPage() {
           <button
             className={styles.btnNext}
             type="button"
-            onClick={() => navigate(`/kapittel/${kapitelId}/emne/${nextId}`)}
-            aria-label="Gå til neste emne"
+            onClick={() => {
+              markEmneVisited(kapitelId, emneId);
+              navigate(`/kapittel/${kapitelId}/emne/${nextId}`);
+            }}
+            aria-label="Fullfør emnet og gå til neste emne"
           >
             Neste emne
             <ChevronRight />

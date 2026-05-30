@@ -1,4 +1,11 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
 import { WelcomePage } from './pages/Welcome/WelcomePage';
 import { KursoversiktPage } from './pages/Kursoversikt/KursoversiktPage';
 import { EmneoversiktPage } from './pages/Emneoversikt/EmneoversiktPage';
@@ -13,6 +20,7 @@ import './App.css';
 function App() {
   return (
     <HashRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/kursoversikt" element={<KursoversiktPage />} />

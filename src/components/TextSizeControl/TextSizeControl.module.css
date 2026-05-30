@@ -1,28 +1,30 @@
+/* Outer wrapper — relative so the label can be centred absolutely */
 .control {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 0.25rem;
+  align-items: stretch;
+  min-width: 14rem;
+  height: 4.1875rem;
   background: var(--color-white);
   border: 0.0625rem solid var(--color-border);
   border-radius: 0.5rem;
-  padding: 0 1rem;
-  height: 4.1875rem;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
+/* Both buttons share base styles */
 .btn {
-  width: 2.75rem;
-  height: 2.75rem;
+  flex: 1;
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 1.25rem;
+  font-size: 1.375rem;
   font-weight: 700;
   color: var(--color-primary);
-  border-radius: 0.25rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* min-width: 0 lets flex shrink past the symbol's intrinsic size */
+  min-width: 0;
 }
 
 .btn:hover:not(:disabled) {
@@ -31,17 +33,36 @@
 
 .btn:focus-visible {
   outline: 0.1875rem solid var(--color-primary);
-  outline-offset: 0.125rem;
+  /* inset so the ring stays inside the rounded control */
+  outline-offset: -0.1875rem;
+  z-index: 1;
 }
 
 .btn:disabled {
-  color: #C0C0C0;
+  color: var(--color-border);
   cursor: not-allowed;
 }
 
+/* Symbol sits at the outer edge of each half */
+.btnDecrease {
+  justify-content: flex-start;
+  padding-left: 1.125rem;
+}
+
+.btnIncrease {
+  justify-content: flex-end;
+  padding-right: 1.125rem;
+}
+
+/* Label floats in the exact centre, non-interactive */
 .label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
   font-size: calc(0.875rem * var(--font-scale, 1));
   color: var(--color-text-muted);
-  padding-left: 0.25rem;
   white-space: nowrap;
+  user-select: none;
 }

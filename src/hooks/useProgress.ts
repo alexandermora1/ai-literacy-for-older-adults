@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { getChapterById, type Chapter } from '../data/chapters';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -117,6 +118,14 @@ function starsForScore(score: number, total: number): number {
   return 1;
 }
 
+function isKapittelComplete(kp: KapittelProgress, chapter: Chapter): boolean {
+  const allTopicsVisited = chapter.topics.every((t) => kp.visitedEmneIds.includes(t.id));
+  const allQuizzesDone = chapter.activities
+    .filter((a) => a.type === 'quiz')
+    .every((a) => (kp.quizResults[a.id]?.score ?? 0) >= 1);
+  return allTopicsVisited && allQuizzesDone;
+}
+
 // ─── Badge logic ──────────────────────────────────────────────────────────────
 
 const KAPITTEL_QUIZ_ID = 1; // each chapter has exactly one quiz with id 1
@@ -225,27 +234,44 @@ export function useProgress(): UseProgressReturn {
 
   const totalStars = Object.values(data.kapitler).reduce((sum, kp) => sum + kp.stars, 0);
 
-  // markEmneVisited — increments visit count; sets kapittel 'igang' on first ever visit
+  // markEmneVisited — increments visit count; promotes kapittel status; runs badge check
   const markEmneVisited = useCallback(
     (kapitelId: number, emneId: number) => {
       const kp = getKp(data, kapitelId);
+      const chapter = getChapterById(kapitelId);
       const prevCount = kp.emneVisitCounts[emneId] ?? 0;
       const alreadyVisited = kp.visitedEmneIds.includes(emneId);
 
-      const newKp: KapittelProgress = {
+      const tentativeKp: KapittelProgress = {
         ...kp,
-        status: kp.status === 'ikke-startet' ? 'igang' : kp.status,
         visitedEmneIds: alreadyVisited ? kp.visitedEmneIds : [...kp.visitedEmneIds, emneId],
         emneVisitCounts: { ...kp.emneVisitCounts, [emneId]: prevCount + 1 },
       };
+
+      const newStatus: KapittelStatus =
+        kp.status === 'fullført' ? 'fullført'
+        : chapter && isKapittelComplete(tentativeKp, chapter) ? 'fullført'
+        : kp.status === 'ikke-startet' ? 'igang'
+        : kp.status;
+
+      const newKp: KapittelProgress = { ...tentativeKp, status: newStatus };
 
       const newData: ProgressData = {
         ...data,
         kapitler: { ...data.kapitler, [kapitelId]: newKp },
       };
 
-      setData(newData);
-      saveToStorage(newData);
+      const newEarnedIds = checkBadges(newData, false);
+      const prevEarnedSet = new Set(data.earnedBadgeIds);
+      const newlyEarned = newEarnedIds.filter((id) => !prevEarnedSet.has(id));
+      const finalData: ProgressData = { ...newData, earnedBadgeIds: newEarnedIds };
+
+      setData(finalData);
+      saveToStorage(finalData);
+      if (newlyEarned.length > 0) {
+        savePendingBadges(newlyEarned);
+        setNewlyEarnedBadges(newlyEarned);
+      }
     },
     [data],
   );
@@ -254,20 +280,14 @@ export function useProgress(): UseProgressReturn {
   const saveQuizResult = useCallback(
     (kapitelId: number, quizId: number, score: number, totalQuestions: number) => {
       const kp = getKp(data, kapitelId);
+      const chapter = getChapterById(kapitelId);
       const previousResult = kp.quizResults[quizId];
       const previousBest = previousResult?.score ?? 0;
       const isScoreImprovement = previousResult?.completed === true && score > previousBest;
       const newStars = starsForScore(score, totalQuestions);
 
-      const newKp: KapittelProgress = {
+      const tentativeKp: KapittelProgress = {
         ...kp,
-        status:
-          score >= 1 || kp.status === 'fullført'
-            ? 'fullført'
-            : kp.status === 'ikke-startet'
-              ? 'igang'
-              : kp.status,
-        stars: Math.max(kp.stars, newStars),
         quizResults: {
           ...kp.quizResults,
           [quizId]: {
@@ -277,6 +297,18 @@ export function useProgress(): UseProgressReturn {
             attemptCount: (previousResult?.attemptCount ?? 0) + 1,
           },
         },
+      };
+
+      const newStatus: KapittelStatus =
+        kp.status === 'fullført' ? 'fullført'
+        : chapter && isKapittelComplete(tentativeKp, chapter) ? 'fullført'
+        : kp.status === 'ikke-startet' ? 'igang'
+        : kp.status;
+
+      const newKp: KapittelProgress = {
+        ...tentativeKp,
+        status: newStatus,
+        stars: Math.max(kp.stars, newStars),
       };
 
       const intermediate: ProgressData = {
