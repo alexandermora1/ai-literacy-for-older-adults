@@ -17,8 +17,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 0 1.5rem 3rem;
-  margin-top: -3rem;
+  padding: 10dvh 1.5rem 3rem;
+  margin-top: 0;
 }
 
 .contentInner {
@@ -108,6 +108,11 @@
    Tablet portrait
    =================================================== */
 @media (min-width: 600px) and (orientation: portrait) {
+  .content {
+    padding: 0 1.5rem 3rem;
+    margin-top: -2rem;
+  }
+
   .heading {
     font-size: calc(2.5rem * var(--font-scale, 1));
   }
@@ -121,6 +126,11 @@
    Tablet landscape (primary layout)
    =================================================== */
 @media (min-width: 1024px) and (orientation: landscape) {
+  .content {
+    padding: 0 1.5rem 3rem;
+    margin-top: -3rem;
+  }
+
   .heading {
     font-size: calc(2.75rem * var(--font-scale, 1));
   }

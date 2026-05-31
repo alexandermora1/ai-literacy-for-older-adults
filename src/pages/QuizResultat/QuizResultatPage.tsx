@@ -204,9 +204,9 @@ export function QuizResultatPage() {
                 className={styles.btnPrimary}
                 type="button"
                 onClick={() => navigate('/merke')}
-                aria-label="Se merkene du har opptjent"
+                aria-label="Se merkene du har opptjent og fortsett kurset"
               >
-                Se merke{newlyEarnedBadges.length > 1 ? 'r' : ''}!
+                Se merke{newlyEarnedBadges.length > 1 ? 'r' : ''} og fortsett kurset
               </button>
             ) : (
               <button

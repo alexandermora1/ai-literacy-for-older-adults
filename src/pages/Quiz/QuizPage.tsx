@@ -169,20 +169,32 @@ export function QuizPage() {
             aria-label="Velg et svar"
             className={styles.answerGrid}
           >
-            {question.answers.map((answer) => (
-              <button
-                key={answer.id}
-                type="button"
-                role="radio"
-                aria-checked={selectedId === answer.id}
-                className={answerClassName(answer.id)}
-                onClick={() => handleSelect(answer.id)}
-                aria-label={answerAriaLabel(answer.id, answer.text)}
-                disabled={hasChecked}
-              >
-                {answer.text}
-              </button>
-            ))}
+            {question.answers.map((answer) => {
+              const state = getAnswerState(answer.id);
+              return (
+                <button
+                  key={answer.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={selectedId === answer.id}
+                  className={answerClassName(answer.id)}
+                  onClick={() => handleSelect(answer.id)}
+                  aria-label={answerAriaLabel(answer.id, answer.text)}
+                  disabled={hasChecked}
+                >
+                  <span>{answer.text}</span>
+                  {state === 'correct' && (
+                    <span className={styles.feedbackCorrect} aria-hidden="true">Riktig!</span>
+                  )}
+                  {state === 'revealed-correct' && (
+                    <span className={styles.feedbackCorrect} aria-hidden="true">Dette er det riktige svaret</span>
+                  )}
+                  {state === 'incorrect' && (
+                    <span className={styles.feedbackIncorrect} aria-hidden="true">Feil</span>
+                  )}
+                </button>
+              );
+            })}
           </div>
 
           {/* Action button */}
