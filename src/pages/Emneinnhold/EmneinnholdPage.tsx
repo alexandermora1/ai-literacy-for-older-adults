@@ -6,6 +6,7 @@ import { TextSizeControl } from '../../components/TextSizeControl/TextSizeContro
 import { useTextScale } from '../../hooks/useTextScale';
 import { useProgress } from '../../hooks/useProgress';
 import { getChapterById } from '../../data/chapters';
+import { getTopicContent } from '../../data/content';
 import styles from './EmneinnholdPage.module.css';
 
 function BackArrow() {
@@ -40,74 +41,6 @@ function ClockIcon() {
     </svg>
   );
 }
-
-type ContentBlock =
-  | { type: 'lead'; text: string }
-  | { type: 'paragraph'; text: string }
-  | { type: 'heading'; text: string };
-
-const PLACEHOLDER_CONTENT: ContentBlock[] = [
-  {
-    type: 'lead',
-    text: 'ChatGPT og lignende verktøy kan skrive tekst, svare på spørsmål og hjelpe deg med mye. Men hva er det egentlig?',
-  },
-  {
-    type: 'paragraph',
-    text: 'Du har kanskje hørt om ChatGPT i nyhetene. Det er et eksempel på det som kalles generativ KI – en type KI som kan lage nytt innhold, som tekst, bilder og musikk.',
-  },
-  {
-    type: 'paragraph',
-    text: 'Ordet "generativ" betyr rett og slett at den lager noe nytt. Du stiller et spørsmål eller gir den en oppgave, og den svarer med noe den har satt sammen selv – basert på alt den har lært.',
-  },
-  {
-    type: 'paragraph',
-    text: 'Det er litt som å snakke med en veldig belest venn. Du spør om noe, og vennen svarer med egne ord – selv om de har lest det et sted før.',
-  },
-  {
-    type: 'heading',
-    text: 'Hvordan fungerer det i praksis?',
-  },
-  {
-    type: 'paragraph',
-    text: 'Når du skriver noe til ChatGPT, leser den det du har skrevet og lager et svar ord for ord. Den velger hvert ord basert på hva som gir mest mening ut fra sammenhengen – litt som når du gjetter neste ord i en setning.',
-  },
-  {
-    type: 'paragraph',
-    text: 'ChatGPT har lært av enorme mengder tekst fra internett, bøker og artikler. Det gjør at den kan svare på spørsmål om nesten hva som helst – fra matlaging til historie til medisinske spørsmål.',
-  },
-  {
-    type: 'paragraph',
-    text: 'Du kommuniserer med den ved å skrive vanlig tekst, akkurat som du sender en melding. Du trenger ikke lære deg noen spesielle kommandoer eller koder.',
-  },
-  {
-    type: 'heading',
-    text: 'Eksempel fra hverdagen',
-  },
-  {
-    type: 'paragraph',
-    text: 'Si at du vil skrive et brev til barnebarna dine, men sliter med å finne de riktige ordene. Du kan be ChatGPT om hjelp: "Kan du hjelpe meg å skrive et hyggelig brev til barnebarna mine?" – og den vil komme med et forslag du kan bruke eller endre som du vil.',
-  },
-  {
-    type: 'paragraph',
-    text: 'Du kan også bruke den til å få forklart noe du lurer på. For eksempel: "Kan du forklare hva blodtrykk er på en enkel måte?" Den svarer deg med det samme, på vanlig norsk.',
-  },
-  {
-    type: 'heading',
-    text: 'Flere verktøy enn ChatGPT',
-  },
-  {
-    type: 'paragraph',
-    text: 'ChatGPT er det mest kjente verktøyet, men det finnes flere. Microsoft har et lignende verktøy som heter Copilot, og Google har ett som heter Gemini. Alle fungerer på omtrent samme måte – du skriver, og de svarer.',
-  },
-  {
-    type: 'paragraph',
-    text: 'I dette kurset bruker vi ChatGPT som eksempel, men det du lærer her gjelder for alle lignende verktøy.',
-  },
-  {
-    type: 'paragraph',
-    text: 'Husk: Generativ KI finner ikke svar i en database – den setter sammen svar basert på mønstre den har lært. Det betyr at den noen ganger kan ta feil, selv om svaret høres overbevisende ut. Det kommer vi tilbake til i emne 5.',
-  },
-];
 
 export function EmneinnholdPage() {
   const { kapitelId: kapitelIdStr, emneId: emneIdStr } = useParams<{
@@ -203,33 +136,74 @@ export function EmneinnholdPage() {
               </span>
               <span className={styles.metaTime}>
                 <ClockIcon />
-                Ca. 3 min
+                {topic.estimertTid ?? 'Ca. 3 min'}
               </span>
             </div>
           </div>
 
           {/* Body content */}
           <div className={styles.body}>
-            {PLACEHOLDER_CONTENT.map((block, i) => {
+            {getTopicContent(kapitelId, emneId).map((block, i) => {
               if (block.type === 'lead') {
+                return <p key={i} className={styles.leadParagraph}>{block.text}</p>;
+              }
+              if (block.type === 'heading') {
+                return <h2 key={i} className={styles.sectionHeading}>{block.text}</h2>;
+              }
+              if (block.type === 'subheading') {
+                return <p key={i} className={styles.subHeading}>{block.text}</p>;
+              }
+              if (block.type === 'rich-paragraph') {
                 return (
-                  <p key={i} className={styles.leadParagraph}>
-                    {block.text}
+                  <p key={i} className={styles.paragraph}>
+                    {block.segments.map((seg, j) =>
+                      seg.href ? (
+                        <a key={j} href={seg.href} className={styles.inlineLink} target="_blank" rel="noopener noreferrer">{seg.text}</a>
+                      ) : seg.italic ? (
+                        <em key={j}>{seg.text}</em>
+                      ) : (
+                        <span key={j}>{seg.text}</span>
+                      )
+                    )}
                   </p>
                 );
               }
-              if (block.type === 'heading') {
+              if (block.type === 'italic-paragraph') {
+                return <p key={i} className={styles.italicParagraph}>{block.text}</p>;
+              }
+              if (block.type === 'bullet-list') {
                 return (
-                  <h2 key={i} className={styles.sectionHeading}>
-                    {block.text}
-                  </h2>
+                  <ul key={i} className={styles.bulletList}>
+                    {block.items.map((item, j) => (
+                      <li key={j} className={styles.bulletItem}>{item}</li>
+                    ))}
+                  </ul>
                 );
               }
-              return (
-                <p key={i} className={styles.paragraph}>
-                  {block.text}
-                </p>
-              );
+              if (block.type === 'paragraph') {
+                return <p key={i} className={styles.paragraph}>{block.text}</p>;
+              }
+              if (block.type === 'sources') {
+                return (
+                  <aside key={i} className={styles.sources}>
+                    <p className={styles.sourcesTitle}>{block.title}</p>
+                    {block.items.map((segments, j) => (
+                      <p key={j} className={styles.sourceItem}>
+                        {segments.map((seg, k) =>
+                          seg.href ? (
+                            <a key={k} href={seg.href} className={styles.inlineLink} target="_blank" rel="noopener noreferrer">{seg.text}</a>
+                          ) : seg.italic ? (
+                            <em key={k}>{seg.text}</em>
+                          ) : (
+                            <span key={k}>{seg.text}</span>
+                          )
+                        )}
+                      </p>
+                    ))}
+                  </aside>
+                );
+              }
+              return null;
             })}
           </div>
 

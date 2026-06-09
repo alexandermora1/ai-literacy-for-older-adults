@@ -24,6 +24,7 @@
 .contentInner {
   width: 100%;
   max-width: 36rem;
+  min-height: 85dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,6 +103,27 @@
   gap: 0.25rem;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+/* ===================================================
+   Privacy disclaimer
+   =================================================== */
+.privacy {
+  width: 100%;
+  margin-top: auto;
+  border-top: 0.0625rem solid var(--color-border);
+  padding-top: 1.25rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.privacy p {
+  margin: 0;
+  font-size: calc(0.8125rem * var(--font-scale, 1));
+  color: var(--color-text-muted);
+  line-height: 1.6;
 }
 
 /* ===================================================

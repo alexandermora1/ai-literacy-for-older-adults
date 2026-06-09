@@ -26,16 +26,11 @@ export function EmneoversiktPage() {
 
   const chapterId = Number(id);
   const chapter = getChapterById(chapterId);
-  const { getVisitedEmneCount, isEmneVisited, getQuizResult } = useProgress();
+  const { isEmneVisited, getQuizResult } = useProgress();
 
   if (!chapter) {
     return <Navigate to="/kursoversikt" replace />;
   }
-
-  const completedTopics = getVisitedEmneCount(chapterId);
-  const completedActivities = chapter.activities.filter(
-    (a) => a.type === 'quiz' && getQuizResult(chapterId, a.id)?.completed === true,
-  ).length;
   const hasTopics = chapter.topics.length > 0;
   const hasActivities = chapter.activities.length > 0;
 

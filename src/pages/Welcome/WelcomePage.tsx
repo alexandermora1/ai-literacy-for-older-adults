@@ -40,6 +40,13 @@ export function WelcomePage() {
             <span aria-hidden="true"> · </span>
             <span>Helt gratis</span>
           </p>
+
+          <footer className={styles.privacy}>
+            <p>Dette kurset samler ikke inn personopplysninger om deg.</p>
+            <p>Nettsiden lagrer kun informasjon om fremgangen din i kurset — hvilke kapitler du har fullført og resultater fra quizene. Denne informasjonen lagres lokalt i nettleseren din og sendes ikke til noen server.</p>
+            <p>Deltar du i masterstudien, samles dine svar inn separat gjennom spørreskjemaene du mottar på e-post. Den prosessen beskrives nærmere i informasjonsskrivet du har fått tilsendt.</p>
+            <p>Nettkurset er utviklet av Alexander Mora, masterstudent ved OsloMet</p>
+          </footer>
         </div>
       </main>
     </div>

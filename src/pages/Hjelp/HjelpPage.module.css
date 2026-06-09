@@ -193,35 +193,6 @@
   outline-offset: 0.125rem;
 }
 
-/* TODO: remove before release */
-.btnNullstill {
-  position: fixed;
-  bottom: 5.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.75rem 1.5rem;
-  min-height: 2.75rem;
-  border: 0.125rem dashed var(--color-text-muted);
-  border-radius: 0.5rem;
-  background: var(--color-white);
-  cursor: pointer;
-  font-family: var(--font-family);
-  font-size: calc(0.9375rem * var(--font-scale, 1));
-  font-weight: 600;
-  color: var(--color-text-muted);
-  white-space: nowrap;
-}
-
-.btnNullstill:hover {
-  border-color: var(--color-text);
-  color: var(--color-text);
-}
-
-.btnNullstill:focus-visible {
-  outline: 0.1875rem solid var(--color-text-muted);
-  outline-offset: 0.125rem;
-}
-
 /* ===================================================
    Tablet portrait
    =================================================== */
