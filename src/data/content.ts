@@ -719,7 +719,7 @@ const CONTENT: Record<string, ContentBlock[]> = {
     {
       type: 'rich-paragraph',
       segments: [
-        { text: 'Gå til spørreskjemaet', href: 'https://nettskjema.no' },
+        { text: 'Gå til spørreskjemaet', href: 'https://nettskjema.no/a/632332' },
       ],
     },
     {
