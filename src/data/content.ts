@@ -76,8 +76,12 @@ const CONTENT: Record<string, ContentBlock[]> = {
       text: 'Slike oppdiktede svar kalles ofte «hallusinasjoner». Det er derfor viktig å være kritisk til påstander fra KI-verktøy og selv sjekke informasjonen, selv om svarene høres troverdige ut.',
     },
     {
-      type: 'paragraph',
-      text: 'Et alvorlig eksempel på KI-hallusinasjon er da KI-oversikten til Google feilaktig hevdet at en norsk politiker var seksualforbryter. Det viser at selv store og ressurssterke selskaper ikke har løst dette problemet.',
+      type: 'rich-paragraph',
+      segments: [
+        { text: 'Et alvorlig eksempel på KI-hallusinasjon er da ' },
+        { text: 'KI-oversikten til Google feilaktig hevdet at en norsk politiker var seksualforbryter', href: 'https://www.tv2.no/nyheter/minister-tordner-mot-google-fullstendig-uakseptabelt/18468187/' },
+        { text: '. Det viser at selv store og ressurssterke selskaper ikke har løst dette problemet.' },
+      ],
     },
     {
       type: 'subheading',
@@ -372,7 +376,7 @@ const CONTENT: Record<string, ContentBlock[]> = {
     },
     {
       type: 'paragraph',
-      text: 'Generativ KI kan gi råd og hjelp i hobbysammenheng – for eksempel i hagen. Hvis du har et blomsterbed der planter ikke vil trives, kan du skrive inn hvor i landet du bor, hva slags solforhold det er i bedet, hva slags jord, og annen relevant informasjon, og spørre om hva som kan passe. Eksempler på gode og dårlige spørsmål om dette finner du i neste emne.',
+      text: 'Generativ KI kan gi råd og hjelp i hobbysammenheng – for eksempel i hagen. Hvis du har et blomsterbed der planter ikke ser ut til å trives, kan du skrive inn hvor i landet du bor, hva slags solforhold det er i bedet, hva slags jord, og annen relevant informasjon, og spørre om hva som kan passe. Eksempler på gode og dårlige spørsmål om dette finner du i neste emne.',
     },
   ],
 
@@ -430,7 +434,7 @@ const CONTENT: Record<string, ContentBlock[]> = {
     {
       type: 'rich-paragraph',
       segments: [
-        { text: 'Hvis du vil prøve selv, kan du besøke ett av disse KI-verktøyene: ' },
+        { text: 'Hvis du vil prøve selv, kan du besøke et av disse KI-verktøyene: ' },
         { text: 'ChatGPT', href: 'https://chatgpt.com' },
         { text: ', ' },
         { text: 'Claude', href: 'https://claude.ai' },
@@ -502,7 +506,7 @@ const CONTENT: Record<string, ContentBlock[]> = {
     },
     {
       type: 'paragraph',
-      text: 'Mange smarthjem-enheter bruker KI for å bli bedre over tid. I stedet for å følge faste regler lærer de av vanene dine. Jo mer du bruker dem, jo bedre tilpasser de seg deg. Dette gjør hverdagen enklere og kan være særlig nyttig for den som ønsker litt ekstra hjelp hjemme.',
+      text: 'Hvis du skaffer deg en smart enhet, er det viktig å lage eget brukernavn og passord til den. Mange gjør ikke dette, og enhetene er derfor spesielt utsatte for dataangrep.',
     },
   ],
 

@@ -191,7 +191,7 @@ export function HjelpPage() {
             </h2>
             <p className={styles.bodyText}>
               Trykk på «Hjelp»-knappen øverst til høyre på de fleste sider for å
-              komme tilbake hit. På mobil finner du knappen nederst på siden.
+              komme tilbake hit.
             </p>
           </section>
         </div>
