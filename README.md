@@ -8,7 +8,7 @@ Built as a master's thesis project (ACIT5900) at OsloMet, in collaboration with 
 
 ## About
 
-SeniorKI introduces older adults to artificial intelligence through a structured, accessible course in Norwegian (bokm√•l). The course is based on Kaur et al.'s AI literacy curriculum framework adapted for older adult learners. It runs entirely in the browser ‚Äî no login, no account, no data collection.
+SeniorKI introduces older adults to artificial intelligence through a structured, accessible course in Norwegian. The course is based on [Kaur et al.'s AI literacy curriculum framework](https://link.springer.com/chapter/10.1007/978-3-031-93412-4_12) adapted for older adult learners. It runs entirely in the browser‚ no login, no account, no data collection.
 
 ## Course Structure
 
