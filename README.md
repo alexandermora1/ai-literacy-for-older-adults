@@ -26,15 +26,15 @@ Each topic ends with a short quiz. Progress is tracked locally in the browser us
 
 SeniorKI was developed using a User-Centred Design (UCD) process, following iterative cycles of design, development, and testing with participants from the target group. The process prioritised real user feedback over assumptions about what older adults need from a digital learning tool.
 
-### Iteration 1 ‚Äî Paper sketches and Figma prototype
+### Iteration 1 ‚ Paper sketches and Figma prototype
 
 The first iteration started with hand-drawn sketches to explore layout and navigation ideas without committing to any implementation. These were developed into an interactive Figma prototype covering the core course flow. Five older adult participants completed think-aloud usability testing sessions, which surfaced early navigation issues and informed the design direction going forward.
 
-### Iteration 2 ‚Äî Refined Figma prototype and coded implementation
+### Iteration 2 ‚ Refined Figma prototype and coded implementation
 
 Based on findings from Iteration 1, the Figma prototype was revised and a working React implementation was built. Three participants took part in think-aloud usability testing of the coded prototype. Key findings from this round ‚Äî including persistent confusion around the terminology used for course sections ‚Äî were documented and fed directly into the next design iteration.
 
-### Iteration 4 ‚Äî Summative evaluation
+### Iteration 4 ‚ Summative evaluation
 
 The final iteration involved a longitudinal study with approximately 12 volunteer participants recruited through Seniornett Norge. Participants completed the full course independently on the live site. Pre- and post-course knowledge tests (multiple choice) and a System Usability Scale (SUS) questionnaire were used to measure learning outcomes and perceived usability. The study was conducted in accordance with Norwegian research ethics requirements and approved by Sikt.
 
