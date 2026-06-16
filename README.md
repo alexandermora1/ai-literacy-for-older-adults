@@ -34,7 +34,7 @@ The first iteration started with hand-drawn sketches to explore layout and navig
 
 Based on findings from Iteration 1, the Figma prototype was revised and a working React implementation was built. Three participants took part in think-aloud usability testing of the coded prototype. Key findings from this round ‚Äî including persistent confusion around the terminology used for course sections ‚Äî were documented and fed directly into the next design iteration.
 
-### Iteration 4 ‚ Summative evaluation
+### Iteration 3 ‚ Summative evaluation
 
 The final iteration involved a longitudinal study with approximately 12 volunteer participants recruited through Seniornett Norge. Participants completed the full course independently on the live site. Pre- and post-course knowledge tests (multiple choice) and a System Usability Scale (SUS) questionnaire were used to measure learning outcomes and perceived usability. The study was conducted in accordance with Norwegian research ethics requirements and approved by Sikt.
 
