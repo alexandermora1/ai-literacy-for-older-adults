@@ -16,8 +16,8 @@ Five modules (kapitler), 14 topics (emner) in total:
 
 1. Introduksjon til KI
 2. Bygge selvtillit med KI
-3. KI i smarthjem
-4. Generativ KI
+3. Generativ KI
+4. KI i smarthjem
 5. Hold deg trygg med KI
 
 Each topic ends with a short quiz. Progress is tracked locally in the browser using localStorage.
