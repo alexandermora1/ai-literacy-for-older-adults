@@ -78,4 +78,5 @@ The interface targets WCAG 2.1 AA compliance:
 
 No personal data is collected. No tracking scripts are loaded. User progress is stored only in the user's own browser via `localStorage` and is never transmitted anywhere.
 
-
+## Delivered
+Version submitted for OsloMet master's thesis, August 2026
