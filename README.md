@@ -3,7 +3,7 @@
 **A free, self-paced course that teaches AI literacy to Norwegian adults aged 60+.**
 Live at **[seniorki.no](https://seniorki.no)**. No account, no login, no tracking.
 
-![SeniorKI welcome screen on a tablet](docs/screenshots/welcome.png)
+![SeniorKI welcome screen on a tablet](docs/screenshots/welcome.jpg)
 
 SeniorKI was the design artefact of my master's thesis in Universal Design of ICT at OsloMet (2026). It turns an existing research-based AI literacy curriculum for older adults ([Kaur et al., 2025](https://doi.org/10.1007/978-3-031-93412-4_12)) into an accessible web course. The course covers what AI is, how to use tools like ChatGPT, AI in the home, and how to spot AI-related scams.
 
@@ -11,7 +11,7 @@ The platform was designed with older adults, not just for them. It went through 
 
 **What this project shows:** user-centred design for an underserved group, usability testing and turning its findings into design decisions, accessibility (WCAG 2.1 AA), and a deliberately restrained approach to gamification.
 
-📄 [Read the full thesis](LINK-TO-THESIS) · 🌐 [Try the course](https://seniorki.no) (Norwegian)
+🌐 [Try the course](https://seniorki.no) (Norwegian)
 
 ---
 
@@ -53,19 +53,19 @@ The course is in Norwegian. Captions give English translations of key interface 
 
 ### Welcome
 
-![Welcome screen](docs/screenshots/welcome.png)
+![Welcome screen](docs/screenshots/welcome.jpg)
 
 The first screen has a single call to action, *"Kom i gang"* (Get started). Below it, a reassurance line reads *"No account · No login · Completely free"* to lower the threshold for hesitant users. An earlier version had two buttons ("Get started" / "Continue where I left off"). Three of five testers tapped through without noticing the second option, so I removed it.
 
 ### Help and onboarding
 
-![Help page](docs/screenshots/help.png)
+![Help page](docs/screenshots/help.jpg)
 
 The help page explains how the course is built (chapters → topics → quiz), where the content comes from, and how to adjust text size. New users see it before they start. It stays one tap away through a persistent *"Hjelp"* (Help) button. I added it after testers in round 1 said they were unsure what the platform actually was.
 
 ### Course overview
 
-![Course overview with two completed chapters](docs/screenshots/course-overview.png)
+![Course overview with two completed chapters](docs/screenshots/course-overview.jpg)
 
 All six chapters fit on one screen, laid out in a two-column grid, so users don't need to scroll. Completed chapters switch to solid green and show the stars earned. A one-line summary sits at the top, reading *"2 of 6 chapters completed · 5 of 15 stars · 4 of 10 badges"*.
 
@@ -73,7 +73,7 @@ Text size, *"Se fremgang"* (See progress) and *"Hjelp"* stay fixed at the top of
 
 ### Chapter overview
 
-![Chapter overview for "Generativ KI"](docs/screenshots/chapter-overview.png)
+![Chapter overview for "Generativ KI"](docs/screenshots/chapter-overview.jpg)
 
 The reading topics and the quiz are separated by three redundant cues:
 
@@ -85,13 +85,13 @@ This took two rounds of testing to get right; see [Design process](#design-proce
 
 ### Topic page
 
-![Topic content page](docs/screenshots/topic.png)
+![Topic content page](docs/screenshots/topic.jpg)
 
 Each topic page shows its position (*"Topic 2 of 3"*) and an estimated reading time. A thin bar under the header fills as the user scrolls. *"Neste emne"* (Next topic) stays inactive until the user reaches the bottom of the page. Both features came from round 2, where the oldest tester assumed a page had ended at the bottom of the screen.
 
 ### Quiz
 
-![Quiz feedback: wrong answer in red, correct answer in green](docs/screenshots/quiz-feedback.png)
+![Quiz feedback: wrong answer in red, correct answer in green](docs/screenshots/quiz-feedback.jpg)
 
 Answers appear as large cards in a 2×2 grid. Tapping a card selects it, and a separate *"Sjekk svar"* (Check answer) button confirms the answer. Testers in both rounds hesitated at this step. I kept it anyway because it lets users reconsider before committing, which matches Nielsen's error-prevention heuristic.
 
@@ -99,20 +99,20 @@ Feedback appears on the cards themselves. Colour is always paired with a text la
 
 ### Quiz results
 
-![Quiz results with stars, new badges and answer review](docs/screenshots/quiz-results.png)
+![Quiz results with stars, new badges and answer review](docs/screenshots/quiz-results.jpg)
 
 The results page shows one star per correct answer, any newly earned badges, and a review of each question. For wrong answers, it shows the correct answer and a link back to re-read the topic.
 
 ### Badges
 
-![Badge earned screen](docs/screenshots/badge-earned.png)
+![Badge earned screen](docs/screenshots/badge-earned.jpg)
 
 Badges are awarded on a dedicated screen, one at a time.
 
 ### Progress
 
-![Progress page with per-chapter progress bars](docs/screenshots/progress.png)
-![Badge collection](docs/screenshots/badges.png)
+![Progress page with per-chapter progress bars](docs/screenshots/progress.jpg)
+![Badge collection](docs/screenshots/badges.jpg)
 
 The progress page gathers per-chapter progress, total stars and badges, and the full badge collection. Earned badges appear in full colour. Unearned badges are muted and state how to earn them.
 
@@ -134,22 +134,22 @@ The project followed a user-centred design process in three stages: **paper sket
 <th width="50%">Final version</th>
 </tr>
 <tr>
-<td><img src="docs/screenshots/iter1-course-overview.png" alt="Round 1 course overview: single column of chapter cards with progress bars, a stepper at the top, and a 'scroll down for the rest' instruction"></td>
-<td><img src="docs/screenshots/course-overview.png" alt="Final course overview: two-column grid of six chapter cards with a one-line progress summary"></td>
+<td><img src="docs/screenshots/iter1-course-overview.jpg" alt="Round 1 course overview: single column of chapter cards with progress bars, a stepper at the top, and a 'scroll down for the rest' instruction"></td>
+<td><img src="docs/screenshots/course-overview.jpg" alt="Final course overview: two-column grid of six chapter cards with a one-line progress summary"></td>
 </tr>
 <tr>
 <td colspan="2"><b>Course overview.</b> The single column needed scrolling. Testers then forgot the buttons at the top. Nobody noticed the progress bars on the cards or the stepper. The final version removes both, moves detailed progress to its own page, and fits every chapter on one screen.</td>
 </tr>
 <tr>
-<td><img src="docs/screenshots/iter1-chapter-overview.png" alt="Round 1 chapter overview: three topic cards stacked above two activity cards, with 'scroll down to see activities'"></td>
-<td><img src="docs/screenshots/chapter-overview.png" alt="Final chapter overview: numbered topics on the left, quiz on the right, with explicit headings"></td>
+<td><img src="docs/screenshots/iter1-chapter-overview.jpg" alt="Round 1 chapter overview: three topic cards stacked above two activity cards, with 'scroll down to see activities'"></td>
+<td><img src="docs/screenshots/chapter-overview.jpg" alt="Final chapter overview: numbered topics on the left, quiz on the right, with explicit headings"></td>
 </tr>
 <tr>
 <td colspan="2"><b>Chapter overview.</b> Topics were stacked above the activities, and users were told to "scroll down to see activities". Two testers pointed out that you scroll <i>down</i> by swiping <i>up</i>. All five confused topics with activities. The final version separates them by position, colour and explicit headings, and numbers the topics. The placeholder "What is a good question?" activity became a reading topic in the chapter.</td>
 </tr>
 <tr>
-<td><img src="docs/screenshots/iter1-progress.png" alt="Round 1 rewards page: summary boxes for stars, chapters and badges, and illustrated robot badges"></td>
-<td><img src="docs/screenshots/progress.png" alt="Final progress page with per-chapter progress bars"></td>
+<td><img src="docs/screenshots/iter1-progress.jpg" alt="Round 1 rewards page: summary boxes for stars, chapters and badges, and illustrated robot badges"></td>
+<td><img src="docs/screenshots/progress.jpg" alt="Final progress page with per-chapter progress bars"></td>
 </tr>
 <tr>
 <td colspan="2"><b>Progress page.</b> When asked which badges they had, testers read the summary boxes and ignored the badges themselves. The final page leads with per-chapter progress, moved here from the course overview. I also replaced the illustrated robot badges with simpler icons. That was my own call rather than a test finding: the detailed illustrations became hard to tell apart at the smaller sizes a responsive layout needs.</td>
